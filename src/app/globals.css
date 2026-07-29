@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-geologica: 'Geologica', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  
+  /* Extracted Brand Palette from https://www.bnbcoastalcuts.com/ */
+  --color-brand-blue: #004AAD;
+  --color-brand-blue-dark: #185BA6;
+  --color-brand-red: #D74E31;
+  --color-brand-yellow: #F5B93F;
+  --color-brand-black: #111827;
+  --color-brand-charcoal: #1F2937;
+}
+
+body {
+  background-color: #111827;
+  color: #F9FAFB;
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Gradients & Accents Matching www.bnbcoastalcuts.com */
+.text-gradient-coastal {
+  background: linear-gradient(135deg, #004AAD 0%, #D74E31 50%, #F5B93F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-red {
+  background: linear-gradient(135deg, #F87171 0%, #D74E31 50%, #B83B20 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-industrial-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 74, 173, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 74, 173, 0.15) 1px, transparent 1px);
+}
+
+.glow-blue {
+  box-shadow: 0 0 30px rgba(0, 74, 173, 0.3);
+}
+
+.glow-red {
+  box-shadow: 0 0 30px rgba(215, 78, 49, 0.3);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #111827;
+}
+::-webkit-scrollbar-thumb {
+  background: #004AAD;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D74E31;
+}
