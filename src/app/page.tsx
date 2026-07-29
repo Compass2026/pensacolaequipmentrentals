@@ -21,8 +21,8 @@ export default function HomePage() {
         <div className="container">
           <h2 className="font-heading text-xl font-black text-brand-blue sm:text-2xl lg:text-3xl">
             Need someone to handle your{" "}
-            <span className="relative inline-block text-[#D74E31] underline decoration-[#185BA6] decoration-wavy decoration-2 underline-offset-4">
-              Land Clearing project?
+            <span className="relative inline-block uppercase text-[#D74E31] animate-blink">
+              Land Clearing Project?
             </span>{" "}
             We&apos;ve got you covered!!!
           </h2>
