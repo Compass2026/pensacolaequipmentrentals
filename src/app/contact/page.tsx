@@ -1,7 +1,9 @@
 import { Metadata } from "next";
 import { BUSINESS_INFO } from "@/data/business";
 import { QuoteForm } from "@/components/QuoteForm";
-import { Phone, Mail, MapPin, Clock, MessageSquare } from "lucide-react";
+import { PageHero } from "@/components/ui/PageHero";
+import { Reveal } from "@/components/ui/Reveal";
+import { Phone, Mail, MapPin, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Contact Pensacola Equipment Rentals | Call 850-407-6566",
@@ -9,101 +11,111 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
+  const channels = [
+    {
+      icon: Phone,
+      label: "Call or text",
+      value: BUSINESS_INFO.phone,
+      href: `tel:${BUSINESS_INFO.phoneRaw}`,
+      note: "Speak directly with the owners",
+      accent: true,
+    },
+    {
+      icon: Mail,
+      label: "Email",
+      value: BUSINESS_INFO.email,
+      href: `mailto:${BUSINESS_INFO.email}`,
+      note: "We reply as fast as we can",
+    },
+    {
+      icon: MapPin,
+      label: "Our yard",
+      value: BUSINESS_INFO.address.formatted,
+      href: `https://maps.google.com/?q=${encodeURIComponent(BUSINESS_INFO.address.formatted)}`,
+      note: "Get directions",
+      external: true,
+    },
+  ];
+
   return (
-    <div className="space-y-0">
-      <section className="border-b border-brand-surface-border bg-gradient-to-b from-brand-black via-brand-charcoal to-brand-black py-16">
-        <div className="container max-w-3xl space-y-4 text-center mx-auto">
-          <span className="text-xs font-bold uppercase tracking-widest text-brand-yellow">
-            Direct Owner Communication
-          </span>
-          <h1 className="font-heading text-4xl font-extrabold text-white sm:text-5xl">
-            Contact Pensacola Equipment Rentals
-          </h1>
-          <p className="text-sm text-gray-300 leading-relaxed">
-            Have questions about equipment availability, jobsite delivery, or land clearing quotes? Reach out directly below or call us anytime.
-          </p>
-        </div>
-      </section>
+    <>
+      <PageHero
+        eyebrow="Direct owner communication"
+        title={
+          <>
+            Let&apos;s talk about <span className="text-sun">your project.</span>
+          </>
+        }
+        description="Questions about equipment availability, jobsite delivery or land clearing quotes? Reach out below or call us anytime."
+        breadcrumbs={[{ name: "Home", href: "/" }, { name: "Contact" }]}
+      />
 
-      <section className="bg-brand-black py-20 border-b border-brand-surface-border">
+      <section className="bg-slate-50 py-20 lg:py-28">
         <div className="container">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
-            {/* Left Info Column */}
-            <div className="lg:col-span-5 space-y-8">
-              <div className="space-y-4">
-                <h2 className="font-heading text-2xl font-bold text-white">Get in Touch</h2>
-                <p className="text-xs text-gray-400 leading-relaxed">
-                  We are available for calls and texts. Speak with our father-and-son owners to confirm your machine rental schedule.
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                <div className="rounded-xl border border-brand-surface-border bg-brand-charcoal p-5 flex items-start space-x-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-yellow/10 text-brand-yellow">
-                    <Phone className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-heading text-sm font-bold text-white">Phone / Text Support</h3>
-                    <a href={`tel:${BUSINESS_INFO.phoneRaw}`} className="text-base font-extrabold text-brand-yellow hover:underline block mt-0.5">
-                      {BUSINESS_INFO.phone}
+          <div className="grid gap-10 lg:grid-cols-12">
+            <div className="space-y-4 lg:col-span-5">
+              {channels.map((c, idx) => {
+                const Icon = c.icon;
+                return (
+                  <Reveal key={c.label} delay={idx * 80}>
+                    <a
+                      href={c.href}
+                      target={c.external ? "_blank" : undefined}
+                      rel={c.external ? "noopener noreferrer" : undefined}
+                      className={`group flex items-center gap-5 rounded-3xl border p-6 transition duration-300 hover:-translate-y-0.5 ${
+                        c.accent
+                          ? "border-transparent bg-hero text-white shadow-lift"
+                          : "border-gray-200 bg-white text-brand-black shadow-card hover:shadow-lift"
+                      }`}
+                    >
+                      <span
+                        className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${
+                          c.accent ? "bg-brand-red shadow-glow-red" : "bg-brand-blue/[0.07] text-brand-blue"
+                        }`}
+                      >
+                        <Icon className="h-6 w-6" />
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className={`block text-[10px] font-bold uppercase tracking-[0.18em] ${c.accent ? "text-white/50" : "text-gray-400"}`}>
+                          {c.label}
+                        </span>
+                        <span className={`block break-words font-heading font-bold ${c.accent ? "text-2xl" : "text-base"}`}>{c.value}</span>
+                        <span className={`text-xs ${c.accent ? "text-white/60" : "text-gray-500"}`}>{c.note}</span>
+                      </span>
+                      <ArrowUpRight className={`h-5 w-5 shrink-0 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 ${c.accent ? "text-brand-yellow" : "text-gray-300"}`} />
                     </a>
-                  </div>
-                </div>
+                  </Reveal>
+                );
+              })}
 
-                <div className="rounded-xl border border-brand-surface-border bg-brand-charcoal p-5 flex items-start space-x-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-yellow/10 text-brand-yellow">
-                    <Mail className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-heading text-sm font-bold text-white">Email Address</h3>
-                    <a href={`mailto:${BUSINESS_INFO.email}`} className="text-sm font-medium text-gray-200 hover:text-brand-yellow block mt-0.5">
-                      {BUSINESS_INFO.email}
-                    </a>
-                  </div>
+              <Reveal delay={260}>
+                <div className="relative h-72 overflow-hidden rounded-3xl border border-gray-200 shadow-card">
+                  <iframe
+                    src="https://maps.google.com/maps?q=7013%20Chapel%20St%2C%20Pensacola%2C%20FL%2032504&t=m&z=11&output=embed&iwloc=near"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    title="Pensacola Equipment Rentals Location"
+                    className="grayscale-[30%]"
+                  />
                 </div>
-
-                <div className="rounded-xl border border-brand-surface-border bg-brand-charcoal p-5 flex items-start space-x-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-yellow/10 text-brand-yellow">
-                    <MapPin className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-heading text-sm font-bold text-white">Office Address</h3>
-                    <p className="text-sm text-gray-300 mt-0.5">{BUSINESS_INFO.address.formatted}</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Google Map Embed */}
-              <div className="rounded-2xl border border-brand-surface-border bg-brand-charcoal overflow-hidden h-64 relative">
-                <iframe
-                  src="https://maps.google.com/maps?q=7013%20Chapel%20St%2C%20Pensacola%2C%20FL%2032504&t=m&z=11&output=embed&iwloc=near"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  title="Pensacola Equipment Rentals Location"
-                />
-              </div>
+              </Reveal>
             </div>
 
-            {/* Right Form Column */}
-            <div className="lg:col-span-7">
-              <div className="rounded-2xl border border-brand-surface-border bg-brand-charcoal p-8 space-y-6 shadow-2xl">
-                <div className="space-y-1">
-                  <span className="text-xs font-bold uppercase tracking-wider text-brand-yellow">
-                    Send a Message
-                  </span>
-                  <h2 className="font-heading text-2xl font-bold text-white">
-                    Request Information &amp; Schedule
-                  </h2>
+            <Reveal delay={120} className="lg:col-span-7">
+              <div className="rounded-[32px] border border-gray-200 bg-white p-6 shadow-lift sm:p-10">
+                <div className="mb-8 space-y-2">
+                  <span className="eyebrow">Send a message</span>
+                  <h2 className="display text-3xl text-brand-black sm:text-4xl">Request info &amp; scheduling</h2>
                 </div>
                 <QuoteForm />
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }

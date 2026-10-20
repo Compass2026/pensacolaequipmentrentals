@@ -1,155 +1,266 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, MapPin, Menu, X, ChevronRight, ArrowRight } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Phone, MapPin, Menu, X, ChevronDown, ArrowRight, ArrowUpRight } from "lucide-react";
 import { BUSINESS_INFO } from "@/data/business";
+import { EQUIPMENT_CATALOG } from "@/data/equipment";
 import { QuoteFormModal } from "./QuoteFormModal";
 
+const NAV_LINKS = [
+  { name: "Equipment", href: "/equipment", mega: true },
+  { name: "Land Clearing", href: "/land-clearing" },
+  { name: "Service Areas", href: "/service-areas" },
+  { name: "About", href: "/about" },
+  { name: "Reviews", href: "/reviews" },
+  { name: "Contact", href: "/contact" },
+];
+
+function startingRate(daily?: number) {
+  return daily ? `From $${daily}/day` : "Call for rates";
+}
+
 export function Header() {
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
-    { name: "Equipment", href: "/equipment" },
-    { name: "Land Clearing", href: "/land-clearing" },
-    { name: "Locations", href: "/service-areas" },
-  ];
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+  }, [mobileMenuOpen]);
+
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full shadow-md">
-        {/* Top Info Bar matching live www.bnbcoastalcuts.com screenshot (#1F2D42 Navy Blue Bar) */}
-        <div className="bg-[#1F2D42] py-2 text-xs font-semibold text-white">
-          <div className="container flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <a
-                href={`tel:${BUSINESS_INFO.phoneRaw}`}
-                className="flex items-center gap-1.5 font-bold text-white transition hover:text-brand-yellow"
-              >
-                <Phone className="h-3.5 w-3.5 fill-white text-white" />
-                <span>{BUSINESS_INFO.phone}</span>
-              </a>
-            </div>
-            <div className="flex items-center space-x-2">
-              <MapPin className="h-3.5 w-3.5 text-white" />
-              <span>7013 chapel st, Pensacola, FL United States, 32504</span>
-            </div>
+      {/* Announcement bar */}
+      <div className="relative z-50 bg-brand-navy text-white">
+        <div className="container flex h-10 items-center justify-between gap-6 text-xs">
+          <Link href="/land-clearing" className="group flex min-w-0 items-center gap-2.5 font-medium text-white/80 transition hover:text-white">
+            <span className="relative flex h-2 w-2 shrink-0">
+              <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-brand-red" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-red" />
+            </span>
+            <span className="truncate">
+              <span className="hidden sm:inline">Need someone to handle your </span>
+              <span className="font-extrabold uppercase tracking-wide text-brand-red animate-attention">Land Clearing Project?</span>{" "}
+              We&apos;ve got you covered.
+            </span>
+            <ArrowRight className="hidden h-3.5 w-3.5 shrink-0 transition group-hover:translate-x-0.5 sm:block" />
+          </Link>
+          <div className="hidden items-center gap-6 text-white/70 md:flex">
+            <span className="flex items-center gap-1.5">
+              <MapPin className="h-3.5 w-3.5 text-brand-yellow" />
+              {BUSINESS_INFO.address.formatted}
+            </span>
+            <a href={`tel:${BUSINESS_INFO.phoneRaw}`} className="flex items-center gap-1.5 font-bold text-white transition hover:text-brand-yellow">
+              <Phone className="h-3.5 w-3.5 text-brand-yellow" />
+              {BUSINESS_INFO.phone}
+            </a>
           </div>
         </div>
+      </div>
 
-        {/* Main Header Navigation Bar (#FFFFFF Pure White Background matching screenshot) */}
-        <div className="bg-white py-2 border-b border-gray-200 overflow-visible">
-          <div className="container flex items-center justify-between">
-            {/* Pensacola Equipment Logo (2.5x Larger) */}
-            <Link href="/" className="flex items-center shrink-0 py-1">
-              <Image
-                src="https://www.bnbcoastalcuts.com/wp-content/uploads/2025/07/Untitled-500-x-500-px.png"
-                alt="Pensacola Equipment Rentals Logo"
-                width={260}
-                height={100}
-                className="h-20 sm:h-24 w-auto object-contain drop-shadow-md transition-transform duration-300 hover:scale-105"
-                priority
-              />
-            </Link>
+      {/* Main navigation */}
+      <header
+        className={`sticky top-0 z-40 w-full border-b transition-all duration-300 ${
+          scrolled ? "border-gray-200/80 bg-white/85 shadow-[0_8px_30px_-12px_rgba(17,24,39,0.18)] backdrop-blur-xl" : "border-transparent bg-white"
+        }`}
+      >
+        <div className={`container flex items-center justify-between gap-6 transition-all duration-300 ${scrolled ? "h-[72px]" : "h-[84px]"}`}>
+          <Link href="/" className="flex shrink-0 items-center" aria-label="Pensacola Equipment Rentals home">
+            <Image
+              src="/brand/logo.png"
+              alt="Pensacola Equipment Rentals Logo"
+              width={394}
+              height={290}
+              priority
+              className={`w-auto transition-all duration-300 ${scrolled ? "h-12" : "h-[60px]"}`}
+            />
+          </Link>
 
-            {/* Desktop Nav Links separated by '|' matching exact screenshot */}
-            <nav className="hidden items-center space-x-3 lg:flex">
-              {navLinks.map((link, idx) => (
-                <div key={link.name} className="flex items-center space-x-3">
+          {/* Desktop nav */}
+          <nav className="relative hidden items-center gap-1 lg:flex" aria-label="Primary">
+            {NAV_LINKS.map((link) =>
+              link.mega ? (
+                <div key={link.name} className="group">
                   <Link
                     href={link.href}
-                    className="text-sm font-extrabold text-gray-900 transition hover:text-[#D74E31]"
+                    className={`flex items-center gap-1 rounded-full px-4 py-2 text-sm font-semibold transition ${
+                      isActive(link.href) ? "text-brand-red" : "text-brand-black hover:text-brand-red"
+                    }`}
                   >
                     {link.name}
+                    <ChevronDown className="h-3.5 w-3.5 transition group-hover:rotate-180" />
                   </Link>
-                  {idx < navLinks.length - 1 && (
-                    <span className="text-gray-400 font-normal">|</span>
-                  )}
+
+                  {/* Equipment mega menu */}
+                  <div className="invisible absolute left-1/2 top-full w-[860px] max-w-[calc(100vw-2rem)] -translate-x-1/2 pt-4 opacity-0 transition-all duration-200 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+                    <div className="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-lift">
+                      <div className="grid grid-cols-3 gap-1 p-3">
+                        {EQUIPMENT_CATALOG.map((item) => (
+                          <Link
+                            key={item.id}
+                            href={`/equipment/${item.slug}`}
+                            className="group/item flex items-center gap-3 rounded-2xl p-2.5 transition hover:bg-gray-50"
+                          >
+                            <div className="relative h-14 w-16 shrink-0 overflow-hidden rounded-xl bg-gradient-to-br from-gray-100 to-gray-50">
+                              <Image src={item.primaryImage} alt="" fill sizes="64px" className="object-contain p-1 transition group-hover/item:scale-110" />
+                            </div>
+                            <div className="min-w-0">
+                              <div className="truncate text-sm font-bold text-brand-black group-hover/item:text-brand-red">{item.shortName}</div>
+                              <div className="text-xs text-gray-500">{startingRate(item.rates.daily)}</div>
+                            </div>
+                          </Link>
+                        ))}
+                        <Link
+                          href="/equipment"
+                          className="flex items-center justify-between rounded-2xl bg-brand-navy p-4 text-white transition hover:bg-brand-blue"
+                        >
+                          <div>
+                            <div className="text-sm font-bold">Full fleet</div>
+                            <div className="text-xs text-white/60">Rates &amp; specs</div>
+                          </div>
+                          <ArrowUpRight className="h-5 w-5 text-brand-yellow" />
+                        </Link>
+                      </div>
+                      <div className="flex items-center justify-between border-t border-gray-100 bg-gray-50 px-6 py-3 text-xs text-gray-600">
+                        <span>Delivery &amp; pickup included within {BUSINESS_INFO.deliveryRadiusMiles} miles of Pensacola</span>
+                        <a href={`tel:${BUSINESS_INFO.phoneRaw}`} className="font-bold text-brand-blue hover:text-brand-red">
+                          {BUSINESS_INFO.phone}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              ))}
-            </nav>
+              ) : (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`relative rounded-full px-4 py-2 text-sm font-semibold transition ${
+                    isActive(link.href) ? "text-brand-red" : "text-brand-black hover:text-brand-red"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              )
+            )}
+          </nav>
 
-            {/* Right Contact Us Coral Red Pill Button matching exact screenshot */}
-            <div className="hidden items-center space-x-4 sm:flex">
-              <button
-                onClick={() => setQuoteModalOpen(true)}
-                className="flex items-center gap-2 rounded-full bg-[#D74E31] px-6 py-2.5 text-sm font-bold text-white transition hover:bg-[#185BA6] shadow-md"
-              >
-                <span>Contact Us</span>
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/20 text-xs">
-                  ›
-                </span>
-              </button>
-            </div>
+          {/* Desktop actions */}
+          <div className="hidden items-center gap-5 lg:flex">
+            <a href={`tel:${BUSINESS_INFO.phoneRaw}`} className="group hidden items-center gap-3 xl:flex">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-blue/10 text-brand-blue transition group-hover:bg-brand-blue group-hover:text-white">
+                <Phone className="h-4 w-4" />
+              </span>
+              <span className="leading-tight">
+                <span className="block text-[10px] font-bold uppercase tracking-[0.16em] text-gray-400">Call or text</span>
+                <span className="block text-sm font-extrabold text-brand-black">{BUSINESS_INFO.phone}</span>
+              </span>
+            </a>
+            <button onClick={() => setQuoteModalOpen(true)} className="btn-primary !px-6 !py-3">
+              Get a Quote
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
 
-            {/* Mobile Menu Toggle Button */}
-            <div className="flex items-center space-x-2 lg:hidden">
-              <button
-                onClick={() => setQuoteModalOpen(true)}
-                className="rounded-full bg-[#D74E31] px-4 py-1.5 text-xs font-bold text-white sm:hidden"
-              >
-                Contact Us
-              </button>
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="rounded-lg border border-gray-300 bg-gray-100 p-2 text-gray-800"
-                aria-label="Toggle navigation menu"
-              >
-                {mobileMenuOpen ? <X className="h-6 w-6 text-[#D74E31]" /> : <Menu className="h-6 w-6 text-gray-800" />}
-              </button>
-            </div>
+          {/* Mobile actions */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <a
+              href={`tel:${BUSINESS_INFO.phoneRaw}`}
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-red text-white shadow-glow-red"
+              aria-label={`Call ${BUSINESS_INFO.phone}`}
+            >
+              <Phone className="h-4 w-4" />
+            </a>
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-brand-black"
+              aria-label="Open navigation menu"
+              aria-expanded={mobileMenuOpen}
+            >
+              <Menu className="h-5 w-5" />
+            </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Navigation Drawer */}
-      {mobileMenuOpen && (
-        <div className="border-b border-gray-200 bg-white py-4 shadow-xl lg:hidden sticky top-[108px] z-30">
-          <div className="container flex flex-col space-y-3">
-            {navLinks.map((link) => (
+      {/* Mobile navigation drawer */}
+      <div
+        className={`fixed inset-0 z-[60] lg:hidden ${mobileMenuOpen ? "pointer-events-auto" : "pointer-events-none"}`}
+        aria-hidden={!mobileMenuOpen}
+      >
+        <div
+          className={`absolute inset-0 bg-brand-black/60 backdrop-blur-sm transition-opacity duration-300 ${mobileMenuOpen ? "opacity-100" : "opacity-0"}`}
+          onClick={() => setMobileMenuOpen(false)}
+        />
+        <div
+          className={`absolute inset-y-0 right-0 flex w-full max-w-sm flex-col bg-hero text-white shadow-2xl transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="flex items-center justify-between border-b border-white/10 px-6 py-5">
+            <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-brand-yellow">Menu</span>
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white"
+              aria-label="Close navigation menu"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+          <nav className="flex-1 overflow-y-auto px-6 py-6" aria-label="Mobile">
+            <Link href="/" className="flex items-center justify-between border-b border-white/10 py-4 font-heading text-2xl font-bold">
+              Home
+              <ArrowUpRight className="h-5 w-5 text-white/30" />
+            </Link>
+            {NAV_LINKS.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between border-b border-gray-100 py-2.5 text-base font-bold text-gray-900 transition hover:text-[#D74E31]"
+                className={`flex items-center justify-between border-b border-white/10 py-4 font-heading text-2xl font-bold transition ${
+                  isActive(link.href) ? "text-brand-yellow" : "text-white"
+                }`}
               >
-                <span>{link.name}</span>
-                <ChevronRight className="h-4 w-4 text-[#D74E31]" />
+                {link.name}
+                <ArrowUpRight className="h-5 w-5 text-white/30" />
               </Link>
             ))}
-            <div className="pt-2 flex flex-col space-y-2">
-              <a
-                href={`tel:${BUSINESS_INFO.phoneRaw}`}
-                className="flex items-center justify-center gap-2 rounded-xl border border-[#185BA6] bg-[#185BA6]/10 py-3 font-bold text-[#185BA6]"
-              >
-                <Phone className="h-4 w-4" />
-                <span>Call {BUSINESS_INFO.phone}</span>
-              </a>
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setQuoteModalOpen(true);
-                }}
-                className="flex items-center justify-center gap-2 rounded-full bg-[#D74E31] py-3 font-bold text-white shadow-md"
-              >
-                <span>Contact Us</span>
-                <span>›</span>
-              </button>
-            </div>
+          </nav>
+          <div className="space-y-3 border-t border-white/10 p-6">
+            <a href={`tel:${BUSINESS_INFO.phoneRaw}`} className="btn-outline-light w-full">
+              <Phone className="h-4 w-4" />
+              Call {BUSINESS_INFO.phone}
+            </a>
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setQuoteModalOpen(true);
+              }}
+              className="btn-primary w-full"
+            >
+              Get a Quote
+              <ArrowRight className="h-4 w-4" />
+            </button>
           </div>
         </div>
-      )}
+      </div>
 
-      {/* Quote Form Modal */}
-      <QuoteFormModal
-        isOpen={quoteModalOpen}
-        onClose={() => setQuoteModalOpen(false)}
-      />
+      <QuoteFormModal isOpen={quoteModalOpen} onClose={() => setQuoteModalOpen(false)} />
     </>
   );
 }

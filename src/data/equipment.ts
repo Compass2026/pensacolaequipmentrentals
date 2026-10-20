@@ -242,7 +242,8 @@ export const EQUIPMENT_CATALOG: EquipmentItem[] = [
       dailyDelivered: 275,
       weekly: 600,
       monthly: 1350,
-      customPricingNote: "Day Rental self-tow: $175 | Day Rental delivered by us: $275. TODO: Confirm weekly rate ($600 on homepage vs $275 on equipment page).",
+      // TODO: Confirm weekly rate ($600 on homepage vs $275 on equipment page).
+      customPricingNote: "Day rental self-tow: $175 · Day rental delivered by us: $275.",
     },
     attachments: [
       { name: "Integrated Roll-Tarp System", included: true },

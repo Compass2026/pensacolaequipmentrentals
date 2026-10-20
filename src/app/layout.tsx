@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
-import { Geologica, Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { generateLocalBusinessSchema } from "@/lib/jsonld";
 
-const geologica = Geologica({
-  subsets: ["latin"],
+// Self-hosted Google Fonts (latin variable subsets) so builds don't depend on fetching fonts.googleapis.com.
+const geologica = localFont({
+  src: "./fonts/geologica-latin-variable.woff2",
   variable: "--font-geologica",
-  weight: ["500", "600", "700", "800"],
+  weight: "500 800",
   display: "swap",
 });
 
-const inter = Inter({
-  subsets: ["latin"],
+const inter = localFont({
+  src: "./fonts/inter-latin-variable.woff2",
   variable: "--font-inter",
-  weight: ["400", "500", "600", "700"],
+  weight: "400 700",
   display: "swap",
 });
 
@@ -84,8 +85,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <noscript>
+          <style>{`.reveal{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
       </head>
-      <body className="flex min-h-screen flex-col bg-brand-black text-gray-200 antialiased pb-16 md:pb-0">
+      <body className="flex min-h-screen flex-col bg-white text-brand-charcoal antialiased">
         <Header />
         <main className="flex-grow">{children}</main>
         <Footer />

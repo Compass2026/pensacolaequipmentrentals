@@ -4,259 +4,178 @@ import { EQUIPMENT_CATALOG } from "@/data/equipment";
 import { BUSINESS_INFO } from "@/data/business";
 import { EquipmentCard } from "@/components/EquipmentCard";
 import { TrustBar } from "@/components/TrustBar";
+import { BrandMarquee } from "@/components/BrandMarquee";
 import { HowItWorks } from "@/components/HowItWorks";
 import { WhyChooseUs } from "@/components/WhyChooseUs";
 import { LandClearingSection } from "@/components/LandClearingSection";
+import { ServiceAreaMap } from "@/components/ServiceAreaMap";
+import { ReviewsSection } from "@/components/ReviewsSection";
 import { FaqAccordion } from "@/components/FaqAccordion";
-import { QuoteForm } from "@/components/QuoteForm";
-import { Phone, ArrowRight, Star, MapPin, Truck, CheckCircle2, ArrowUpRight } from "lucide-react";
+import { QuoteSection } from "@/components/QuoteSection";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Reveal } from "@/components/ui/Reveal";
+import { Phone, ArrowRight, Truck, Star } from "lucide-react";
+
+const HERO_MACHINE = EQUIPMENT_CATALOG.find((item) => item.id === "kubota-svl") ?? EQUIPMENT_CATALOG[2];
 
 export default function HomePage() {
   const featuredEquipment = EQUIPMENT_CATALOG.slice(0, 4);
 
+  const stats = [
+    { value: `${BUSINESS_INFO.deliveryRadiusMiles} mi`, label: "Delivery radius" },
+    { value: `${EQUIPMENT_CATALOG.length}`, label: "Machines & tools" },
+    { value: "2022+", label: "Model-year fleet" },
+    { value: "5.0", label: "Customer rating", star: true },
+  ];
+
   return (
-    <div className="space-y-0 bg-white">
-      {/* 1. TOP ANNOUNCEMENT BANNER MATCHING EXACT LIVE SCREENSHOT */}
-      <section className="bg-white py-6 border-b border-gray-200 text-center">
-        <div className="container">
-          <h2 className="font-heading text-xl font-black text-brand-blue sm:text-2xl lg:text-3xl">
-            Need someone to handle your{" "}
-            <span className="relative inline-block uppercase text-[#D74E31] animate-blink">
-              Land Clearing Project?
-            </span>{" "}
-            We&apos;ve got you covered!!!
-          </h2>
-        </div>
-      </section>
+    <>
+      {/* HERO */}
+      <section className="relative isolate overflow-hidden bg-hero text-white">
+        <div className="absolute inset-0 -z-10 bg-blueprint" />
+        <div className="absolute inset-0 -z-10 bg-noise opacity-[0.05] mix-blend-overlay" />
 
-      {/* 2. HERO SECTION MATCHING EXACT LIVE SCREENSHOT */}
-      <section className="relative bg-[#185BA6] py-16 lg:py-24 overflow-hidden">
-        {/* Background Image Watermark */}
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-15 pointer-events-none"
-          style={{
-            backgroundImage: `url('https://www.bnbcoastalcuts.com/wp-content/uploads/2025/05/Pensacola-Equipment-1-2.png')`,
-          }}
-        />
+        <div className="container relative pb-20 pt-14 sm:pt-20 lg:pb-28 lg:pt-24">
+          <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-8">
+            {/* Copy */}
+            <div className="space-y-8 lg:col-span-7">
+              <Reveal>
+                <span className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/5 py-1.5 pl-1.5 pr-4 text-xs font-semibold text-white/80 backdrop-blur">
+                  <span className="rounded-full bg-brand-red px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">Local</span>
+                  Father &amp; son owned · Pensacola, FL
+                </span>
+              </Reveal>
 
-        <div className="container relative z-10">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 items-center">
-            {/* Left Hero Text Column */}
-            <div className="lg:col-span-7 space-y-6 text-left">
-              {/* Category Tag matching screenshot */}
-              <span className="text-sm font-extrabold uppercase tracking-widest text-white/90">
-                PENSACOLA EQUIPMENT RENTALS
-              </span>
+              <Reveal delay={80}>
+                <h1 className="display text-[2.75rem] sm:text-6xl lg:text-7xl xl:text-[5.25rem]">
+                  Affordable &amp; dependable equipment rentals in <span className="text-sun">Pensacola.</span>
+                </h1>
+              </Reveal>
 
-              {/* Main Headline matching screenshot */}
-              <h1 className="font-heading text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl leading-[1.1]">
-                Affordable &amp; Dependable Equipment Rentals in Pensacola
-              </h1>
+              <Reveal delay={160}>
+                <p className="max-w-xl text-lg leading-relaxed text-white/70 sm:text-xl">
+                  Locally owned and operated — trusted by Pensacola contractors and homeowners alike. Excavators, skid
+                  steers and trailers delivered straight to your jobsite.
+                </p>
+              </Reveal>
 
-              {/* Subheading matching screenshot */}
-              <p className="text-base text-white/90 sm:text-xl font-medium leading-relaxed max-w-2xl">
-                Locally owned and operated – trusted by Pensacola contractors and homeowners alike.
-              </p>
-
-              {/* Outline Button matching exact screenshot: 'Discover more ↗' */}
-              <div className="pt-4 flex flex-wrap items-center gap-4">
-                <Link
-                  href="/equipment"
-                  className="inline-flex items-center gap-2 rounded-lg border-2 border-white px-7 py-3.5 text-base font-extrabold text-white transition hover:bg-white hover:text-[#185BA6] shadow-lg"
-                >
-                  <span>Discover more</span>
-                  <ArrowUpRight className="h-5 w-5" />
+              <Reveal delay={240} className="flex flex-wrap items-center gap-3">
+                <Link href="/equipment" className="btn-primary !px-8 !py-4 text-base">
+                  Browse the fleet
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
-                <a
-                  href={`tel:${BUSINESS_INFO.phoneRaw}`}
-                  className="inline-flex items-center gap-2 rounded-lg bg-[#D74E31] px-7 py-3.5 text-base font-extrabold text-white transition hover:bg-white hover:text-[#D74E31] shadow-lg"
-                >
-                  <Phone className="h-5 w-5" />
-                  <span>Call {BUSINESS_INFO.phone}</span>
+                <a href={`tel:${BUSINESS_INFO.phoneRaw}`} className="btn-outline-light !px-8 !py-4 text-base">
+                  <Phone className="h-4 w-4" />
+                  {BUSINESS_INFO.phone}
                 </a>
-              </div>
+              </Reveal>
+
+              <Reveal delay={320}>
+                <dl className="grid max-w-2xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-4">
+                  {stats.map((stat) => (
+                    <div key={stat.label} className="flex flex-col-reverse bg-brand-black/40 px-5 py-4 backdrop-blur">
+                      <dt className="text-[11px] font-medium text-white/50">{stat.label}</dt>
+                      <dd className="flex items-center gap-1 font-heading text-2xl font-extrabold tracking-tight">
+                        {stat.value}
+                        {stat.star && <Star className="h-4 w-4 fill-brand-yellow text-brand-yellow" />}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </Reveal>
             </div>
 
-            {/* Right Hero Image Column (Kubota SVL Track Loader) */}
-            <div className="lg:col-span-5 relative flex items-center justify-center">
-              <div className="relative h-[380px] sm:h-[480px] lg:h-[540px] w-full">
-                <Image
-                  src="https://www.bnbcoastalcuts.com/wp-content/uploads/2025/05/Untitled-design-3.png"
-                  alt="Kubota SVL Skid Steer Loader Pensacola Equipment Rentals"
-                  fill
-                  className="object-contain drop-shadow-2xl transition-transform duration-500 hover:scale-105"
-                  priority
-                />
+            {/* Machine visual */}
+            <div className="relative lg:col-span-5">
+              <div className="relative mx-auto aspect-square w-full max-w-[560px]">
+                <div className="absolute inset-[8%] rounded-full bg-sun shadow-[0_0_120px_-10px_rgba(215,78,49,0.6)]" />
+                <div className="absolute inset-[2%] animate-spin-slow rounded-full border border-dashed border-white/20" />
+                <div className="absolute inset-[-6%] rounded-full border border-white/5" />
+                <div className="absolute inset-x-[-18%] bottom-[0%] top-[8%] animate-float">
+                  <Image
+                    src={HERO_MACHINE.primaryImage}
+                    alt="Kubota SVL track skid steer available for rent in Pensacola"
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 45vw, 100vw"
+                    className="object-contain drop-shadow-[0_40px_40px_rgba(0,0,0,0.55)]"
+                  />
+                </div>
+
+                {/* Floating chips */}
+                <Link
+                  href={`/equipment/${HERO_MACHINE.slug}`}
+                  className="absolute bottom-0 left-0 flex items-center gap-3 rounded-2xl border border-white/15 bg-brand-black/70 p-3 pr-5 shadow-2xl backdrop-blur-xl transition hover:border-white/30 sm:-left-4"
+                >
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10">
+                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 ring-4 ring-emerald-400/20" />
+                  </span>
+                  <span>
+                    <span className="block text-[10px] font-bold uppercase tracking-[0.16em] text-white/50">Available now</span>
+                    <span className="block text-sm font-bold">{HERO_MACHINE.shortName}</span>
+                    {HERO_MACHINE.rates.daily && (
+                      <span className="block text-xs text-brand-yellow">From ${HERO_MACHINE.rates.daily}/day</span>
+                    )}
+                  </span>
+                </Link>
+                <div className="absolute right-0 top-[6%] flex items-center gap-2.5 rounded-full border border-white/15 bg-white/10 px-4 py-2.5 text-xs font-semibold shadow-xl backdrop-blur-xl">
+                  <Truck className="h-4 w-4 text-brand-yellow" />
+                  Delivered to your jobsite
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3. TRUST BAR */}
+      <BrandMarquee />
+
       <TrustBar />
 
-      {/* 4. FEATURED EQUIPMENT SECTION */}
-      <section className="bg-slate-50 py-20 border-b border-gray-200">
-        <div className="container space-y-12">
-          <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
-            <div className="space-y-2">
-              <span className="text-xs font-extrabold uppercase tracking-widest text-[#D74E31]">
-                Heavy Machinery &amp; Tools
-              </span>
-              <h2 className="font-heading text-3xl font-extrabold text-gray-900 sm:text-4xl">
-                Featured Rental Fleet
-              </h2>
-              <p className="text-sm text-gray-600 max-w-xl">
-                Explore our main equipment lineup. Every machine comes fully inspected, fueled, and ready for work with optional attachments.
-              </p>
-            </div>
-            <Link
-              href="/equipment"
-              className="flex items-center gap-2 text-sm font-bold text-[#185BA6] hover:text-[#D74E31]"
-            >
-              <span>View All Equipment ({EQUIPMENT_CATALOG.length})</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+      {/* FEATURED FLEET */}
+      <section className="bg-slate-50 py-24 lg:py-32">
+        <div className="container space-y-14">
+          <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+            <SectionHeading
+              eyebrow="The fleet"
+              title={
+                <>
+                  Job-ready machines, <span className="text-brand-blue">delivered.</span>
+                </>
+              }
+              description="Every machine arrives inspected, fueled and ready to work — with the buckets and attachments you need."
+            />
+            <Reveal>
+              <Link href="/equipment" className="btn-outline-dark shrink-0">
+                View all {EQUIPMENT_CATALOG.length} rentals
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Reveal>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {featuredEquipment.map((equip) => (
-              <EquipmentCard key={equip.id} equipment={equip} />
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {featuredEquipment.map((equip, idx) => (
+              <Reveal key={equip.id} delay={idx * 90} className="h-full">
+                <EquipmentCard equipment={equip} />
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 5. WHY CHOOSE US */}
       <WhyChooseUs />
 
-      {/* 6. HOW IT WORKS */}
       <HowItWorks />
 
-      {/* 7. LAND CLEARING PROMOTION */}
       <LandClearingSection />
 
-      {/* 8. AREAS SERVED */}
-      <section className="bg-white py-16 border-b border-gray-200">
-        <div className="container text-center space-y-8">
-          <div className="space-y-2 max-w-2xl mx-auto">
-            <span className="text-xs font-extrabold uppercase tracking-widest text-[#D74E31]">
-              Local Service Coverage
-            </span>
-            <h2 className="font-heading text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              Serving Pensacola &amp; Surrounding Communities
-            </h2>
-            <p className="text-sm text-gray-600">
-              We provide prompt equipment drop-off and pickup across Escambia and Santa Rosa counties.
-            </p>
-          </div>
+      <ServiceAreaMap />
 
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 max-w-4xl mx-auto">
-            {BUSINESS_INFO.serviceAreas.map((area) => (
-              <Link
-                key={area.slug}
-                href={`/service-areas/${area.slug}`}
-                className="group rounded-2xl border border-gray-200 bg-slate-50 p-5 text-center transition hover:border-[#185BA6] hover:bg-white shadow-sm hover:shadow-md"
-              >
-                <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-xl bg-[#185BA6]/10 text-[#185BA6] group-hover:bg-[#D74E31] group-hover:text-white transition">
-                  <MapPin className="h-5 w-5" />
-                </div>
-                <h3 className="font-heading text-base font-bold text-gray-900 group-hover:text-[#185BA6] transition">
-                  {area.name}, FL
-                </h3>
-                <span className="text-xs text-gray-500">Delivery Available</span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ReviewsSection />
 
-      {/* 9. REVIEWS SECTION */}
-      <section className="bg-slate-900 py-20 text-white border-b border-gray-800">
-        <div className="container space-y-12">
-          <div className="text-center space-y-2 max-w-2xl mx-auto">
-            <div className="flex items-center justify-center gap-1 text-amber-400 mb-2">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-5 w-5 fill-amber-400" />
-              ))}
-            </div>
-            <h2 className="font-heading text-3xl font-extrabold text-white sm:text-4xl">
-              Trusted by Local Pensacola Contractors &amp; Homeowners
-            </h2>
-            <p className="text-sm text-gray-400">
-              Real feedback from local property owners and construction professionals.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {[
-              {
-                quote: "Great local father and son team! They delivered the Bobcat E26 excavator right on time for our driveway project. Machine operated flawlessly.",
-                author: "Mark S.",
-                location: "Pensacola Contractor",
-              },
-              {
-                quote: "Rented the Iron Bull dump trailer to clean up storm debris around our property in Gulf Breeze. Super smooth process and fair pricing.",
-                author: "David L.",
-                location: "Gulf Breeze Homeowner",
-              },
-              {
-                quote: "We hired Pensacola Equipment Rentals for brush clearing on a 2-acre lot in Milton. They completed it quickly and cleared everything we needed.",
-                author: "Robert T.",
-                location: "Milton Property Owner",
-              },
-            ].map((rev, idx) => (
-              <div
-                key={idx}
-                className="rounded-2xl border border-gray-800 bg-slate-800/80 p-6 space-y-4 flex flex-col justify-between"
-              >
-                <div className="space-y-3">
-                  <div className="flex items-center gap-1 text-amber-400">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-amber-400" />
-                    ))}
-                  </div>
-                  <p className="text-xs text-gray-300 italic leading-relaxed">
-                    &quot;{rev.quote}&quot;
-                  </p>
-                </div>
-                <div className="pt-3 border-t border-gray-700">
-                  <h4 className="font-heading text-sm font-bold text-white">{rev.author}</h4>
-                  <span className="text-[11px] text-[#D74E31] font-semibold">{rev.location}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 10. VISIBLE FAQS */}
       <FaqAccordion />
 
-      {/* 11. FINAL CALL TO ACTION & QUOTE FORM */}
-      <section className="bg-slate-50 py-20" id="quote-section">
-        <div className="container max-w-5xl">
-          <div className="rounded-3xl border border-gray-200 bg-white p-8 md:p-12 shadow-2xl space-y-8">
-            <div className="text-center space-y-3 max-w-2xl mx-auto">
-              <span className="text-xs font-extrabold uppercase tracking-widest text-[#D74E31]">
-                Get Started Today
-              </span>
-              <h2 className="font-heading text-3xl font-extrabold text-gray-900 sm:text-4xl">
-                Ready to Rent Equipment or Request Land Clearing?
-              </h2>
-              <p className="text-sm text-gray-600">
-                Fill out the form below or call us directly at <a href={`tel:${BUSINESS_INFO.phoneRaw}`} className="text-[#D74E31] font-bold underline">{BUSINESS_INFO.phone}</a>. We&apos;ll confirm machine availability immediately.
-              </p>
-            </div>
-
-            {/* Embedded Quote Form */}
-            <div className="max-w-3xl mx-auto">
-              <QuoteForm />
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+      <QuoteSection />
+    </>
   );
 }

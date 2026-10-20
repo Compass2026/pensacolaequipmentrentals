@@ -1,154 +1,152 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, Mail, MapPin, ShieldCheck, ChevronRight } from "lucide-react";
+import { Phone, Mail, MapPin, ArrowUpRight, ArrowRight } from "lucide-react";
 import { BUSINESS_INFO } from "@/data/business";
 import { EQUIPMENT_CATALOG } from "@/data/equipment";
 
+const COMPANY_LINKS = [
+  { name: "About us", href: "/about" },
+  { name: "Land clearing", href: "/land-clearing" },
+  { name: "Customer reviews", href: "/reviews" },
+  { name: "Resources", href: "/resources" },
+  { name: "Request a quote", href: "/request-a-quote" },
+  { name: "Contact", href: "/contact" },
+];
+
 export function Footer() {
   return (
-    <footer className="border-t border-brand-surface-border bg-brand-black text-gray-300">
-      {/* Upper Footer Banner */}
-      <div className="border-b border-brand-blue-dark bg-brand-blue py-10">
-        <div className="container flex flex-col items-center justify-between gap-6 md:flex-row">
-          <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-brand-yellow">
-              Need Reliable Equipment Fast?
-            </span>
-            <h3 className="font-heading text-2xl font-extrabold text-white md:text-3xl">
-              Delivering Mini Excavators, Skid Steers &amp; Trailers Across Pensacola
-            </h3>
+    <footer className="relative isolate overflow-hidden bg-brand-black text-white/70">
+      {/* CTA band */}
+      <div className="container pt-20">
+        <div className="relative overflow-hidden rounded-[32px] bg-brand-blue px-8 py-12 sm:px-12 lg:flex lg:items-center lg:justify-between lg:gap-10 lg:px-16 lg:py-14">
+          <div className="absolute inset-0 bg-blueprint opacity-60" />
+          <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-sun opacity-60 blur-2xl" />
+          <div className="relative max-w-2xl space-y-3">
+            <span className="eyebrow-light">Need reliable equipment fast?</span>
+            <h2 className="display text-3xl text-white sm:text-4xl lg:text-5xl">Let&apos;s get your project moving.</h2>
+            <p className="text-white/75">Mini excavators, skid steers &amp; trailers delivered across Pensacola.</p>
           </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <a
-              href={`tel:${BUSINESS_INFO.phoneRaw}`}
-              className="flex items-center gap-2 rounded-xl bg-brand-red px-6 py-3 text-base font-extrabold text-white transition hover:bg-brand-black shadow-lg"
-            >
-              <Phone className="h-5 w-5" />
-              <span>Call {BUSINESS_INFO.phone}</span>
+          <div className="relative mt-8 flex flex-wrap gap-3 lg:mt-0 lg:shrink-0">
+            <a href={`tel:${BUSINESS_INFO.phoneRaw}`} className="btn-primary">
+              <Phone className="h-4 w-4" />
+              {BUSINESS_INFO.phone}
             </a>
-            <Link
-              href="/request-a-quote"
-              className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 text-base font-bold text-white transition hover:bg-white hover:text-brand-blue"
-            >
-              Request Availability
+            <Link href="/request-a-quote" className="btn-outline-light">
+              Request availability
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Main Footer Links */}
-      <div className="container py-16">
-        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Column 1: Company Profile */}
-          <div className="space-y-4">
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="relative h-12 w-12 overflow-hidden rounded-xl border border-brand-blue/30 bg-white p-1">
-                <Image
-                  src="https://www.bnbcoastalcuts.com/wp-content/uploads/2025/07/Untitled-500-x-500-px.png"
-                  alt="Pensacola Equipment Rentals Logo"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <span className="font-heading text-lg font-bold text-white">
-                Pensacola Equipment Rentals
-              </span>
+      {/* Link columns */}
+      <div className="container py-20">
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-12">
+          <div className="space-y-6 lg:col-span-4">
+            <Link href="/" className="inline-block" aria-label="Pensacola Equipment Rentals home">
+              <Image src="/brand/logo.png" alt="Pensacola Equipment Rentals Logo" width={394} height={290} className="h-24 w-auto" />
             </Link>
-            <p className="text-xs text-gray-400 leading-relaxed">
-              Locally owned and operated father-and-son equipment rental and land-clearing company. Providing dependable machines and fast jobsite delivery for Pensacola contractors and homeowners.
-            </p>
-            <div className="flex items-center space-x-2 text-xs font-semibold text-brand-red">
-              <ShieldCheck className="h-4 w-4" />
-              <span>{BUSINESS_INFO.deliveryNote}</span>
-            </div>
+            <p className="max-w-sm text-sm leading-relaxed text-white/55">{BUSINESS_INFO.story}</p>
+            <p className="max-w-sm text-xs leading-relaxed text-brand-yellow/90">{BUSINESS_INFO.deliveryNote}</p>
           </div>
 
-          {/* Column 2: Equipment Links */}
-          <div className="space-y-4">
-            <h4 className="font-heading text-xs font-extrabold text-white uppercase tracking-wider">
-              Equipment Rentals
-            </h4>
-            <ul className="space-y-2 text-xs">
-              {EQUIPMENT_CATALOG.slice(0, 6).map((item) => (
+          <div className="space-y-5 lg:col-span-3">
+            <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">Equipment</h3>
+            <ul className="space-y-3 text-sm">
+              {EQUIPMENT_CATALOG.map((item) => (
                 <li key={item.id}>
-                  <Link
-                    href={`/equipment/${item.slug}`}
-                    className="flex items-center space-x-1.5 transition hover:text-brand-red"
-                  >
-                    <ChevronRight className="h-3.5 w-3.5 text-brand-red" />
-                    <span>{item.shortName}</span>
+                  <Link href={`/equipment/${item.slug}`} className="transition hover:text-white">
+                    {item.shortName}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 3: Service Areas */}
-          <div className="space-y-4">
-            <h4 className="font-heading text-xs font-extrabold text-white uppercase tracking-wider">
-              Service Areas
-            </h4>
-            <ul className="space-y-2 text-xs">
+          <div className="space-y-5 lg:col-span-2">
+            <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">Company</h3>
+            <ul className="space-y-3 text-sm">
+              {COMPANY_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="transition hover:text-white">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <h3 className="pt-4 text-[11px] font-bold uppercase tracking-[0.2em] text-white">Service areas</h3>
+            <ul className="space-y-3 text-sm">
               {BUSINESS_INFO.serviceAreas.map((area) => (
                 <li key={area.slug}>
-                  <Link
-                    href={`/service-areas/${area.slug}`}
-                    className="flex items-center space-x-1.5 transition hover:text-brand-red"
-                  >
-                    <ChevronRight className="h-3.5 w-3.5 text-brand-red" />
-                    <span>{area.name}, FL Equipment Rental</span>
+                  <Link href={`/service-areas/${area.slug}`} className="transition hover:text-white">
+                    {area.name}, {area.state}
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link
-                  href="/land-clearing"
-                  className="flex items-center space-x-1.5 transition hover:text-brand-red font-bold text-brand-red"
-                >
-                  <ChevronRight className="h-3.5 w-3.5" />
-                  <span>Land Clearing Services</span>
-                </Link>
-              </li>
             </ul>
           </div>
 
-          {/* Column 4: Contact & Business Hours */}
-          <div className="space-y-4">
-            <h4 className="font-heading text-xs font-extrabold text-white uppercase tracking-wider">
-              Direct Contact
-            </h4>
-            <ul className="space-y-3 text-xs">
-              <li className="flex items-start space-x-3">
-                <MapPin className="h-4 w-4 text-brand-red shrink-0 mt-0.5" />
-                <span>{BUSINESS_INFO.address.formatted}</span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <Phone className="h-4 w-4 text-brand-red shrink-0" />
-                <a href={`tel:${BUSINESS_INFO.phoneRaw}`} className="hover:text-brand-red font-bold text-white">
-                  {BUSINESS_INFO.phone}
+          <div className="space-y-5 lg:col-span-3">
+            <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">Get in touch</h3>
+            <ul className="space-y-4 text-sm">
+              <li>
+                <a href={`tel:${BUSINESS_INFO.phoneRaw}`} className="group flex items-start gap-3 transition hover:text-white">
+                  <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand-red" />
+                  <span>
+                    <span className="block font-heading text-lg font-bold text-white">{BUSINESS_INFO.phone}</span>
+                    <span className="text-xs">Call or text the owners</span>
+                  </span>
                 </a>
               </li>
-              <li className="flex items-center space-x-3">
-                <Mail className="h-4 w-4 text-brand-red shrink-0" />
-                <a href={`mailto:${BUSINESS_INFO.email}`} className="hover:text-brand-red">
+              <li>
+                <a href={`mailto:${BUSINESS_INFO.email}`} className="flex items-center gap-3 break-all transition hover:text-white">
+                  <Mail className="h-4 w-4 shrink-0 text-brand-red" />
                   {BUSINESS_INFO.email}
                 </a>
               </li>
+              <li>
+                <a
+                  href={`https://maps.google.com/?q=${encodeURIComponent(BUSINESS_INFO.address.formatted)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 transition hover:text-white"
+                >
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-red" />
+                  <span>
+                    {BUSINESS_INFO.address.street}
+                    <br />
+                    {BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state} {BUSINESS_INFO.address.zip}
+                    <span className="mt-1 flex items-center gap-1 text-xs font-semibold text-brand-yellow">
+                      Get directions <ArrowUpRight className="h-3 w-3" />
+                    </span>
+                  </span>
+                </a>
+              </li>
             </ul>
           </div>
         </div>
       </div>
 
-      {/* Copyright Bar */}
-      <div className="border-t border-brand-surface-border bg-brand-charcoal py-6 text-xs text-gray-400">
-        <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
-          <p>© {new Date().getFullYear()} {BUSINESS_INFO.legalName}. All rights reserved.</p>
-          <div className="flex space-x-6">
+      {/* Oversized wordmark */}
+      <div className="pointer-events-none select-none overflow-hidden" aria-hidden>
+        <div className="container">
+          <div className="translate-y-[18%] text-center font-heading text-[15vw] font-extrabold uppercase leading-none tracking-[-0.05em] text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.08)] 2xl:text-[13rem]">
+            Pensacola
+          </div>
+        </div>
+      </div>
+
+      <div className="relative border-t border-white/10 bg-brand-black">
+        <div className="container flex flex-col items-center justify-between gap-4 pb-28 pt-6 text-xs text-white/45 md:flex-row md:pb-6">
+          <p>
+            © {new Date().getFullYear()} {BUSINESS_INFO.legalName}. All rights reserved.
+          </p>
+          <div className="flex gap-6">
             <Link href="/privacy-policy" className="hover:text-white">
               Privacy Policy
             </Link>
             <Link href="/contact" className="hover:text-white">
-              Contact Us
+              Contact
             </Link>
             <Link href="/sitemap.xml" className="hover:text-white">
               Sitemap

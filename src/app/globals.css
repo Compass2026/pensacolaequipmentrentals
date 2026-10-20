@@ -5,7 +5,7 @@
 :root {
   --font-geologica: 'Geologica', sans-serif;
   --font-inter: 'Inter', sans-serif;
-  
+
   /* Extracted Brand Palette from https://www.bnbcoastalcuts.com/ */
   --color-brand-blue: #004AAD;
   --color-brand-blue-dark: #185BA6;
@@ -13,41 +13,194 @@
   --color-brand-yellow: #F5B93F;
   --color-brand-black: #111827;
   --color-brand-charcoal: #1F2937;
+  --color-brand-navy: #1F2D42;
+
+  /* Header height used for sticky offsets and anchor scrolling */
+  --header-h: 84px;
 }
 
-body {
-  background-color: #111827;
-  color: #F9FAFB;
-  font-family: var(--font-inter), sans-serif;
-  overflow-x: hidden;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-h) + 16px);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #1F2937;
+    font-family: var(--font-inter), sans-serif;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-geologica), sans-serif;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: #D74E31;
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid #F5B93F;
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
 }
 
-/* Custom Gradients & Accents Matching www.bnbcoastalcuts.com */
-.text-gradient-coastal {
-  background: linear-gradient(135deg, #004AAD 0%, #D74E31 50%, #F5B93F 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+@layer components {
+  /* Eyebrow label: small uppercase kicker with a leading rule */
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-brand-red;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply block h-px w-8 bg-current;
+  }
+  .eyebrow-light {
+    @apply eyebrow text-brand-yellow;
+  }
+
+  .display {
+    @apply font-heading font-extrabold tracking-[-0.035em] leading-[0.98];
+  }
+
+  /* Buttons */
+  .btn {
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-3.5 text-sm font-bold tracking-wide transition-all duration-300 ease-out active:scale-[0.98];
+  }
+  .btn-primary {
+    @apply btn bg-brand-red text-white shadow-glow-red hover:-translate-y-0.5 hover:bg-brand-red-dark;
+  }
+  .btn-blue {
+    @apply btn bg-brand-blue text-white shadow-glow-blue hover:-translate-y-0.5 hover:bg-brand-blue-dark;
+  }
+  .btn-outline-light {
+    @apply btn border border-white/30 bg-white/5 text-white backdrop-blur-sm hover:border-white hover:bg-white hover:text-brand-navy;
+  }
+  .btn-outline-dark {
+    @apply btn border border-gray-300 bg-white text-brand-black hover:border-brand-black hover:bg-brand-black hover:text-white;
+  }
+
+  /* Cards */
+  .card {
+    @apply rounded-3xl border border-gray-200/80 bg-white shadow-card;
+  }
+  .card-dark {
+    @apply rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-sm;
+  }
+
+  /* Form fields */
+  .field-label {
+    @apply mb-1.5 block text-[11px] font-bold uppercase tracking-[0.14em] text-gray-500;
+  }
+  .field {
+    @apply w-full rounded-xl border border-gray-200 bg-gray-50/70 px-4 py-3 text-sm text-brand-black placeholder-gray-400 transition focus:border-brand-blue focus:bg-white focus:outline-none focus:ring-4 focus:ring-brand-blue/10;
+  }
 }
 
-.text-gradient-red {
-  background: linear-gradient(135deg, #F87171 0%, #D74E31 50%, #B83B20 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+@layer utilities {
+  /* Backgrounds */
+  .bg-hero {
+    background:
+      radial-gradient(1200px 600px at 85% 20%, rgba(24, 91, 166, 0.55), transparent 60%),
+      radial-gradient(900px 500px at 0% 100%, rgba(0, 74, 173, 0.45), transparent 60%),
+      linear-gradient(160deg, #1F2D42 0%, #111827 55%, #0b1220 100%);
+  }
+
+  .bg-blueprint {
+    background-size: 56px 56px;
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+
+  .bg-blueprint-light {
+    background-size: 56px 56px;
+    background-image:
+      linear-gradient(to right, rgba(17, 24, 39, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(17, 24, 39, 0.05) 1px, transparent 1px);
+    mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+  }
+
+  /* Sunset disc echoing the logo's sun */
+  .bg-sun {
+    background: radial-gradient(circle at 50% 35%, #F5B93F 0%, #D74E31 55%, #B83B20 100%);
+  }
+
+  .text-sun {
+    background: linear-gradient(100deg, #F5B93F 0%, #D74E31 70%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-coastal {
+    background: linear-gradient(135deg, #004AAD 0%, #D74E31 50%, #F5B93F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-red {
+    background: linear-gradient(135deg, #F87171 0%, #D74E31 50%, #B83B20 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .bg-noise {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+  }
+
+  .mask-fade-x {
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-.bg-industrial-grid {
-  background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(0, 74, 173, 0.15) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 74, 173, 0.15) 1px, transparent 1px);
+/* Scroll reveal (driven by components/Reveal.tsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
 }
 
-.glow-blue {
-  box-shadow: 0 0 30px rgba(0, 74, 173, 0.3);
-}
-
-.glow-red {
-  box-shadow: 0 0 30px rgba(215, 78, 49, 0.3);
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
 
 /* Custom Scrollbar */
