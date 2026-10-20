@@ -16,7 +16,13 @@
   --color-brand-navy: #1F2D42;
 
   /* Header height used for sticky offsets and anchor scrolling */
-  --header-h: 84px;
+  --header-h: 88px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 112px;
+  }
 }
 
 @layer base {
