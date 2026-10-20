@@ -81,7 +81,7 @@ export function Header() {
           scrolled ? "border-gray-200/80 bg-white/95 shadow-[0_8px_30px_-12px_rgba(17,24,39,0.18)] backdrop-blur-xl" : "border-transparent bg-white"
         }`}
       >
-        <div className={`container flex items-center justify-between gap-6 transition-all duration-300 ${scrolled ? "h-[72px] lg:h-[84px]" : "h-[88px] lg:h-[112px]"}`}>
+        <div className={`container flex items-center justify-between gap-6 transition-all duration-300 ${scrolled ? "h-[72px] lg:h-[92px]" : "h-[88px] lg:h-[132px]"}`}>
           <Link href="/" className="flex shrink-0 items-center" aria-label="Pensacola Equipment Rentals home">
             <Image
               src="/brand/logo.png"
@@ -89,18 +89,18 @@ export function Header() {
               width={394}
               height={290}
               priority
-              className={`w-auto transition-all duration-300 ${scrolled ? "h-14 lg:h-[68px]" : "h-[68px] lg:h-[92px]"}`}
+              className={`w-auto transition-all duration-300 ${scrolled ? "h-14 lg:h-[76px]" : "h-[68px] lg:h-[110px]"}`}
             />
           </Link>
 
           {/* Desktop nav */}
-          <nav className="relative hidden items-center gap-1 lg:flex" aria-label="Primary">
+          <nav className="relative hidden items-center gap-0 lg:flex xl:gap-1" aria-label="Primary">
             {NAV_LINKS.map((link) =>
               link.mega ? (
                 <div key={link.name} className="group">
                   <Link
                     href={link.href}
-                    className={`flex items-center gap-1 rounded-full px-4 py-2 text-sm font-semibold transition ${
+                    className={`flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-2 text-sm font-semibold transition xl:px-4 ${
                       isActive(link.href) ? "text-brand-red" : "text-brand-black hover:text-brand-red"
                     }`}
                   >
@@ -151,7 +151,7 @@ export function Header() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`relative rounded-full px-4 py-2 text-sm font-semibold transition ${
+                  className={`relative whitespace-nowrap rounded-full px-3 py-2 text-sm font-semibold transition xl:px-4 ${
                     isActive(link.href) ? "text-brand-red" : "text-brand-black hover:text-brand-red"
                   }`}
                 >
@@ -172,7 +172,7 @@ export function Header() {
                 <span className="block text-sm font-extrabold text-brand-black">{BUSINESS_INFO.phone}</span>
               </span>
             </a>
-            <button onClick={() => setQuoteModalOpen(true)} className="btn-primary !px-6 !py-3">
+            <button onClick={() => setQuoteModalOpen(true)} className="btn-primary whitespace-nowrap !px-6 !py-3">
               Get a Quote
               <ArrowRight className="h-4 w-4" />
             </button>
