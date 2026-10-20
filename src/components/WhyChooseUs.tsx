@@ -1,100 +1,89 @@
 import Image from "next/image";
-import { CheckCircle2, UserCheck, Wrench, ShieldCheck, MapPin, PhoneCall } from "lucide-react";
+import { PhoneCall } from "lucide-react";
 import { BUSINESS_INFO } from "@/data/business";
+import { Reveal } from "./ui/Reveal";
+
+const POINTS = [
+  {
+    title: "Father & son values",
+    description: "When you call, you speak directly with the owners. We treat your jobsite with care and personal commitment.",
+  },
+  {
+    title: "Modern, maintained fleet",
+    description: "2022–2023 Bobcat, Kubota, Iron Bull and Gravely equipment, serviced regularly for maximum uptime.",
+  },
+  {
+    title: "Prompt jobsite delivery",
+    description: "We haul equipment straight to your property or jobsite within 20 miles of Pensacola.",
+  },
+  {
+    title: "Rent it — or hire us",
+    description: "Run the machine yourself, or hand the whole job to our crew for full land and brush clearing.",
+  },
+];
 
 export function WhyChooseUs() {
-  const points = [
-    {
-      title: "Father & Son Business Values",
-      description: "When you call, you speak directly with the owners. We treat your job site with care and personal commitment.",
-    },
-    {
-      title: "Well-Maintained Modern Machines",
-      description: "Our fleet consists of modern 2022–2023 Bobcat, Kubota, Iron Bull, and Gravely equipment serviced regularly for high uptime.",
-    },
-    {
-      title: "Prompt Jobsite Delivery",
-      description: "We haul equipment directly to your residential property or job site within 20 miles of Pensacola and surrounding Panhandle towns.",
-    },
-    {
-      title: "Equipment or Full Service Options",
-      description: "Rent the equipment to do it yourself, or hire our experienced crew to perform full land clearing and brush removal for you.",
-    },
-  ];
-
   return (
-    <section className="bg-brand-charcoal py-20 border-b border-brand-surface-border">
+    <section className="relative isolate overflow-hidden bg-hero py-24 text-white lg:py-32">
+      <div className="absolute inset-0 -z-10 bg-blueprint" />
       <div className="container">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 items-center">
-          {/* Left Column: Image Card */}
-          <div className="relative rounded-2xl border border-brand-surface-border bg-brand-black p-3 overflow-hidden group shadow-2xl">
-            <div className="relative h-[400px] sm:h-[480px] w-full rounded-xl overflow-hidden">
+        <div className="grid items-center gap-16 lg:grid-cols-12 lg:gap-20">
+          {/* Photo collage */}
+          <Reveal className="relative mx-auto w-full max-w-md lg:col-span-5 lg:max-w-none">
+            <div className="absolute -left-10 -top-10 h-56 w-56 rounded-full bg-sun opacity-80 blur-[2px]" />
+            <div className="relative aspect-[3/4] w-[82%] overflow-hidden rounded-[28px] border border-white/10 shadow-2xl">
+              <Image
+                src="https://www.bnbcoastalcuts.com/wp-content/uploads/2025/05/pensacola2.jpg"
+                alt="Bobcat track loader grading red clay on a Pensacola jobsite"
+                fill
+                sizes="(min-width: 1024px) 35vw, 80vw"
+                className="object-cover"
+              />
+            </div>
+            <div className="absolute -bottom-10 right-0 aspect-[3/4] w-[52%] overflow-hidden rounded-[24px] border-[6px] border-brand-navy shadow-2xl">
               <Image
                 src="https://www.bnbcoastalcuts.com/wp-content/uploads/2025/05/pensacola1.jpg"
-                alt="Pensacola Equipment Rentals heavy machinery on jobsite"
+                alt="Bobcat mini excavator and skid steer clearing a lot"
                 fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(min-width: 1024px) 20vw, 50vw"
+                className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent opacity-80" />
             </div>
-
-            {/* Overlaid Badge */}
-            <div className="absolute bottom-6 left-6 right-6 rounded-xl border border-brand-yellow/30 bg-brand-charcoal/90 p-4 backdrop-blur-md">
-              <div className="flex items-center space-x-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-yellow text-brand-black font-bold">
-                  <UserCheck className="h-5 w-5" />
-                </div>
-                <div>
-                  <h4 className="font-heading text-sm font-bold text-white">
-                    Locally Owned & Operated in Pensacola
-                  </h4>
-                  <p className="text-xs text-brand-yellow font-medium">
-                    Dependable Equipment. Honest Rates. On-Time Delivery.
-                  </p>
-                </div>
-              </div>
+            <div className="absolute left-4 top-6 rounded-2xl border border-white/15 bg-brand-black/70 px-5 py-4 backdrop-blur-md sm:left-6">
+              <div className="font-heading text-3xl font-extrabold text-brand-yellow">Est. 2023</div>
+              <div className="text-xs font-medium text-white/70">Family owned in Pensacola</div>
             </div>
-          </div>
+          </Reveal>
 
-          {/* Right Column: Copy & Point List */}
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <span className="text-xs font-bold uppercase tracking-widest text-brand-yellow">
-                Why Pensacola Equipment Rentals
-              </span>
-              <h2 className="font-heading text-3xl font-bold text-white sm:text-4xl">
-                Built For Local Contractors & DIY Homeowners
+          {/* Copy */}
+          <div className="space-y-10 pt-10 lg:col-span-7 lg:pt-0">
+            <Reveal className="space-y-5">
+              <span className="eyebrow-light">Why Pensacola Equipment Rentals</span>
+              <h2 className="display text-4xl sm:text-5xl lg:text-[3.5rem]">
+                Built for local contractors &amp; <span className="text-sun">DIY homeowners.</span>
               </h2>
-              <p className="text-sm text-gray-300 leading-relaxed">
-                Whether you’re clearing a backyard lot in Gulf Breeze, trenching utilities in Milton, or hauling roof tear-off debris in Pensacola, our father-and-son team provides the reliable machinery and friendly support you need.
+              <p className="max-w-2xl text-base leading-relaxed text-white/65 sm:text-lg">
+                Whether you&apos;re clearing a backyard lot in Gulf Breeze, trenching utilities in Milton, or hauling
+                tear-off debris in Pensacola, our team brings reliable machinery and friendly, local support.
               </p>
-            </div>
+            </Reveal>
 
-            <div className="space-y-4 pt-2">
-              {points.map((pt) => (
-                <div key={pt.title} className="flex space-x-3 items-start">
-                  <CheckCircle2 className="h-5 w-5 text-brand-yellow shrink-0 mt-0.5" />
-                  <div className="space-y-0.5">
-                    <h4 className="font-heading text-base font-bold text-white">
-                      {pt.title}
-                    </h4>
-                    <p className="text-xs text-gray-400 leading-relaxed">
-                      {pt.description}
-                    </p>
-                  </div>
-                </div>
+            <div className="grid gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 sm:grid-cols-2">
+              {POINTS.map((pt, idx) => (
+                <Reveal key={pt.title} delay={idx * 90} className="group bg-brand-navy/80 p-7 transition hover:bg-brand-navy">
+                  <span className="font-heading text-sm font-bold text-brand-red">0{idx + 1}</span>
+                  <h3 className="mt-3 font-heading text-lg font-bold">{pt.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/60">{pt.description}</p>
+                </Reveal>
               ))}
             </div>
 
-            <div className="pt-4 flex flex-wrap gap-4 items-center">
-              <a
-                href={`tel:${BUSINESS_INFO.phoneRaw}`}
-                className="flex items-center gap-2 rounded-lg bg-brand-yellow px-6 py-3 text-sm font-bold text-brand-black transition hover:bg-brand-yellow-dark shadow"
-              >
+            <Reveal>
+              <a href={`tel:${BUSINESS_INFO.phoneRaw}`} className="btn-primary">
                 <PhoneCall className="h-4 w-4" />
-                <span>Call Owner Directly: {BUSINESS_INFO.phone}</span>
+                Call the owners: {BUSINESS_INFO.phone}
               </a>
-            </div>
+            </Reveal>
           </div>
         </div>
       </div>

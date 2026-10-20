@@ -84,8 +84,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <noscript>
+          <style>{`.reveal{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
       </head>
-      <body className="flex min-h-screen flex-col bg-brand-black text-gray-200 antialiased pb-16 md:pb-0">
+      <body className="flex min-h-screen flex-col bg-white text-brand-charcoal antialiased">
         <Header />
         <main className="flex-grow">{children}</main>
         <Footer />

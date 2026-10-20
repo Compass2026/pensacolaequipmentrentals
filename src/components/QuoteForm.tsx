@@ -8,9 +8,13 @@ import { BUSINESS_INFO } from "@/data/business";
 interface QuoteFormProps {
   preselectedEquipment?: string;
   onSuccess?: () => void;
+  /** Stack fields for narrow containers such as sidebars. */
+  compact?: boolean;
 }
 
-export function QuoteForm({ preselectedEquipment, onSuccess }: QuoteFormProps) {
+export function QuoteForm({ preselectedEquipment, onSuccess, compact = false }: QuoteFormProps) {
+  const twoCol = compact ? "grid grid-cols-1 gap-5" : "grid grid-cols-1 gap-5 sm:grid-cols-2";
+  const threeCol = compact ? "grid grid-cols-2 gap-5 [&>*:first-child]:col-span-2" : "grid grid-cols-1 gap-5 sm:grid-cols-3";
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -37,20 +41,20 @@ export function QuoteForm({ preselectedEquipment, onSuccess }: QuoteFormProps) {
 
   if (submitted) {
     return (
-      <div className="rounded-2xl border border-brand-red/40 bg-brand-charcoal p-8 text-center space-y-4">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-brand-red/20 text-brand-red">
+      <div className="rounded-3xl border border-emerald-200 bg-emerald-50/60 p-8 text-center space-y-4">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg shadow-emerald-500/30">
           <CheckCircle2 className="h-8 w-8" />
         </div>
-        <h3 className="font-heading text-2xl font-bold text-white">
+        <h3 className="font-heading text-2xl font-bold text-brand-black">
           Quote Request Received!
         </h3>
-        <p className="text-gray-300 text-sm max-w-md mx-auto">
-          Thank you, <span className="text-white font-bold">{formData.name}</span>. Our father-and-son team will review equipment availability for <span className="text-brand-red font-bold">{formData.equipment}</span> and contact you shortly.
+        <p className="text-gray-600 text-sm max-w-md mx-auto">
+          Thank you, <span className="text-brand-black font-bold">{formData.name}</span>. Our father-and-son team will review equipment availability for <span className="text-brand-red font-bold">{formData.equipment}</span> and contact you shortly.
         </p>
         <div className="pt-2">
           <a
             href={`tel:${BUSINESS_INFO.phoneRaw}`}
-            className="inline-flex items-center gap-2 rounded-xl bg-brand-red px-5 py-2.5 text-sm font-bold text-white shadow-lg"
+            className="btn-primary"
           >
             <PhoneCall className="h-4 w-4" />
             <span>Need Immediate Confirmation? Call {BUSINESS_INFO.phone}</span>
@@ -61,11 +65,11 @@ export function QuoteForm({ preselectedEquipment, onSuccess }: QuoteFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div className={twoCol}>
         {/* Full Name */}
         <div>
-          <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">
+          <label htmlFor="name" className="field-label">
             Your Full Name *
           </label>
           <input
@@ -75,13 +79,13 @@ export function QuoteForm({ preselectedEquipment, onSuccess }: QuoteFormProps) {
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             placeholder="John Doe"
-            className="w-full rounded-xl border border-brand-surface-border bg-brand-black px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:border-brand-red focus:outline-none"
+            className="field"
           />
         </div>
 
         {/* Phone Number */}
         <div>
-          <label htmlFor="phone" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">
+          <label htmlFor="phone" className="field-label">
             Phone Number *
           </label>
           <input
@@ -91,15 +95,15 @@ export function QuoteForm({ preselectedEquipment, onSuccess }: QuoteFormProps) {
             value={formData.phone}
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             placeholder="850-555-0199"
-            className="w-full rounded-xl border border-brand-surface-border bg-brand-black px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:border-brand-red focus:outline-none"
+            className="field"
           />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className={twoCol}>
         {/* Email Address */}
         <div>
-          <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">
+          <label htmlFor="email" className="field-label">
             Email Address *
           </label>
           <input
@@ -109,40 +113,40 @@ export function QuoteForm({ preselectedEquipment, onSuccess }: QuoteFormProps) {
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             placeholder="john@example.com"
-            className="w-full rounded-xl border border-brand-surface-border bg-brand-black px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:border-brand-red focus:outline-none"
+            className="field"
           />
         </div>
 
         {/* Equipment Requested */}
         <div>
-          <label htmlFor="equipment" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">
+          <label htmlFor="equipment" className="field-label">
             Requested Equipment *
           </label>
           <select
             id="equipment"
             value={formData.equipment}
             onChange={(e) => setFormData({ ...formData, equipment: e.target.value })}
-            className="w-full rounded-xl border border-brand-surface-border bg-brand-black px-4 py-2.5 text-sm text-white focus:border-brand-red focus:outline-none"
+            className="field"
           >
             {EQUIPMENT_CATALOG.map((item) => (
-              <option key={item.id} value={item.name} className="bg-brand-charcoal text-white">
+              <option key={item.id} value={item.name}>
                 {item.name}
               </option>
             ))}
-            <option value="Land Clearing Service" className="bg-brand-charcoal text-white">
+            <option value="Land Clearing Service">
               Hire Us For Full Land Clearing Services
             </option>
-            <option value="Multiple Equipment Package" className="bg-brand-charcoal text-white">
+            <option value="Multiple Equipment Package">
               Multiple Equipment Rental Package
             </option>
           </select>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className={threeCol}>
         {/* Start Date */}
         <div>
-          <label htmlFor="startDate" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">
+          <label htmlFor="startDate" className="field-label">
             Start Date
           </label>
           <input
@@ -150,20 +154,20 @@ export function QuoteForm({ preselectedEquipment, onSuccess }: QuoteFormProps) {
             id="startDate"
             value={formData.startDate}
             onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-            className="w-full rounded-xl border border-brand-surface-border bg-brand-black px-4 py-2.5 text-sm text-white focus:border-brand-red focus:outline-none"
+            className="field"
           />
         </div>
 
         {/* Duration */}
         <div>
-          <label htmlFor="duration" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">
+          <label htmlFor="duration" className="field-label">
             Duration
           </label>
           <select
             id="duration"
             value={formData.duration}
             onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-            className="w-full rounded-xl border border-brand-surface-border bg-brand-black px-4 py-2.5 text-sm text-white focus:border-brand-red focus:outline-none"
+            className="field"
           >
             <option value="Daily">Daily Rental</option>
             <option value="Weekly">Weekly Rental</option>
@@ -174,14 +178,14 @@ export function QuoteForm({ preselectedEquipment, onSuccess }: QuoteFormProps) {
 
         {/* Preferred Contact Method */}
         <div>
-          <label htmlFor="preferredContact" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">
+          <label htmlFor="preferredContact" className="field-label">
             Preferred Contact
           </label>
           <select
             id="preferredContact"
             value={formData.preferredContact}
             onChange={(e) => setFormData({ ...formData, preferredContact: e.target.value })}
-            className="w-full rounded-xl border border-brand-surface-border bg-brand-black px-4 py-2.5 text-sm text-white focus:border-brand-red focus:outline-none"
+            className="field"
           >
             <option value="Phone">Phone Call</option>
             <option value="SMS">Text Message (SMS)</option>
@@ -192,7 +196,7 @@ export function QuoteForm({ preselectedEquipment, onSuccess }: QuoteFormProps) {
 
       {/* Delivery Address or ZIP */}
       <div>
-        <label htmlFor="deliveryAddress" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">
+        <label htmlFor="deliveryAddress" className="field-label">
           Delivery Address or ZIP Code *
         </label>
         <input
@@ -202,13 +206,13 @@ export function QuoteForm({ preselectedEquipment, onSuccess }: QuoteFormProps) {
           value={formData.deliveryZipOrAddress}
           onChange={(e) => setFormData({ ...formData, deliveryZipOrAddress: e.target.value })}
           placeholder="e.g. 7013 Chapel St, Pensacola FL 32504"
-          className="w-full rounded-xl border border-brand-surface-border bg-brand-black px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:border-brand-red focus:outline-none"
+          className="field"
         />
       </div>
 
       {/* Project Notes */}
       <div>
-        <label htmlFor="projectDetails" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">
+        <label htmlFor="projectDetails" className="field-label">
           Project Details / Attachments Needed
         </label>
         <textarea
@@ -217,17 +221,14 @@ export function QuoteForm({ preselectedEquipment, onSuccess }: QuoteFormProps) {
           value={formData.projectDetails}
           onChange={(e) => setFormData({ ...formData, projectDetails: e.target.value })}
           placeholder="Describe your job site, work type, or attachment needs (e.g. grapple bucket, tooth bucket, brush clearing)..."
-          className="w-full rounded-xl border border-brand-surface-border bg-brand-black px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:border-brand-red focus:outline-none"
+          className="field"
         />
       </div>
 
       {/* Submit Button */}
-      <button
-        type="submit"
-        className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-red py-3.5 text-base font-extrabold text-white transition hover:bg-brand-blue shadow-xl"
-      >
-        <Send className="h-4 w-4" />
-        <span>Check Availability &amp; Send Quote Request</span>
+      <button type="submit" className="btn-primary group w-full !py-4 text-base">
+        <span>Check Availability &amp; Request Quote</span>
+        <Send className="h-4 w-4 transition group-hover:translate-x-1" />
       </button>
 
       <p className="text-center text-[11px] text-gray-400">

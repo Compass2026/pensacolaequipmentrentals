@@ -1,7 +1,11 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { BUSINESS_INFO } from "@/data/business";
-import { MapPin, Truck, ChevronRight, Phone } from "lucide-react";
+import { ServiceAreaMap } from "@/components/ServiceAreaMap";
+import { QuoteSection } from "@/components/QuoteSection";
+import { PageHero } from "@/components/ui/PageHero";
+import { Reveal } from "@/components/ui/Reveal";
+import { MapPin, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Service Areas | Equipment Rental Delivery Near Pensacola FL",
@@ -10,48 +14,54 @@ export const metadata: Metadata = {
 
 export default function ServiceAreasPage() {
   return (
-    <div className="space-y-0">
-      <section className="border-b border-brand-surface-border bg-gradient-to-b from-brand-black via-brand-charcoal to-brand-black py-16">
-        <div className="container max-w-3xl space-y-4 text-center mx-auto">
-          <span className="text-xs font-bold uppercase tracking-widest text-brand-yellow">
-            Florida Panhandle Coverage
-          </span>
-          <h1 className="font-heading text-4xl font-extrabold text-white sm:text-5xl">
-            Equipment Delivery Service Areas
-          </h1>
-          <p className="text-sm text-gray-300">
-            We deliver heavy machinery directly to residential properties and commercial jobsites within 20 miles of Pensacola, FL.
-          </p>
-        </div>
-      </section>
+    <>
+      <PageHero
+        eyebrow="Florida Panhandle coverage"
+        title={
+          <>
+            Equipment delivery <span className="text-sun">service areas.</span>
+          </>
+        }
+        description={`We deliver heavy machinery to residential properties and commercial jobsites within ${BUSINESS_INFO.deliveryRadiusMiles} miles of Pensacola — and farther for a custom rate.`}
+        breadcrumbs={[{ name: "Home", href: "/" }, { name: "Service Areas" }]}
+      />
 
-      <section className="bg-brand-black py-20 border-b border-brand-surface-border">
-        <div className="container max-w-5xl space-y-10">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {BUSINESS_INFO.serviceAreas.map((area) => (
-              <div key={area.slug} className="rounded-2xl border border-brand-surface-border bg-brand-charcoal p-8 space-y-4 flex flex-col justify-between">
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2 text-brand-yellow">
-                    <MapPin className="h-5 w-5" />
-                    <span className="text-xs font-bold uppercase tracking-wider">{area.state} Service Hub</span>
-                  </div>
-                  <h2 className="font-heading text-2xl font-bold text-white">{area.name}, FL Equipment Rental</h2>
-                  <p className="text-xs text-gray-400 leading-relaxed">
-                    Full daily, weekly, and monthly equipment rental options delivered directly to {area.name} jobsites. Mini excavators, skid steers, and dump trailers.
-                  </p>
-                </div>
+      <section className="bg-white py-20 lg:py-28">
+        <div className="container">
+          <div className="grid gap-6 sm:grid-cols-2">
+            {BUSINESS_INFO.serviceAreas.map((area, idx) => (
+              <Reveal key={area.slug} delay={idx * 90}>
                 <Link
                   href={`/service-areas/${area.slug}`}
-                  className="inline-flex items-center justify-between rounded-lg bg-brand-surface px-5 py-3 text-xs font-bold text-white hover:border hover:border-brand-yellow hover:text-brand-yellow transition"
+                  className="group relative flex h-full flex-col justify-between overflow-hidden rounded-[28px] border border-gray-200 bg-white p-8 shadow-card transition duration-500 hover:-translate-y-1 hover:shadow-lift sm:p-10"
                 >
-                  <span>Explore {area.name} Equipment Delivery</span>
-                  <ChevronRight className="h-4 w-4 text-brand-yellow" />
+                  <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-sun opacity-0 blur-2xl transition duration-500 group-hover:opacity-20" />
+                  <div className="relative space-y-4">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-blue/[0.07] text-brand-blue transition group-hover:bg-brand-blue group-hover:text-white">
+                      <MapPin className="h-5 w-5" />
+                    </span>
+                    <h2 className="display text-3xl text-brand-black sm:text-4xl">
+                      {area.name}, {area.state}
+                    </h2>
+                    <p className="max-w-md text-sm leading-relaxed text-gray-500">
+                      Daily, weekly and monthly equipment rentals delivered to {area.name} jobsites — mini excavators, skid
+                      steers and dump trailers.
+                    </p>
+                  </div>
+                  <span className="relative mt-8 inline-flex items-center gap-2 text-sm font-bold text-brand-blue group-hover:text-brand-red">
+                    Explore {area.name} delivery
+                    <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </span>
                 </Link>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
-    </div>
+
+      <ServiceAreaMap />
+
+      <QuoteSection />
+    </>
   );
 }

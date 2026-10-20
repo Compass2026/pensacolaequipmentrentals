@@ -1,7 +1,9 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { BookOpen, ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { PageHero } from "@/components/ui/PageHero";
+import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
   title: "Equipment & Landscaping Resources | Pensacola Equipment Rentals",
@@ -30,60 +32,77 @@ const ARTICLES = [
 ];
 
 export default function ResourcesPage() {
-  return (
-    <div className="space-y-0">
-      <section className="border-b border-brand-surface-border bg-gradient-to-b from-brand-black via-brand-charcoal to-brand-black py-16">
-        <div className="container max-w-3xl space-y-4 text-center mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full border border-brand-yellow/30 bg-brand-yellow/10 px-4 py-1 text-xs font-bold text-brand-yellow">
-            <BookOpen className="h-4 w-4" />
-            <span>Equipment Guides &amp; Insights</span>
-          </div>
-          <h1 className="font-heading text-4xl font-extrabold text-white sm:text-5xl">
-            Equipment &amp; Landscaping Resources
-          </h1>
-          <p className="text-sm text-gray-300">
-            Free operational guides and tips to help you pick the right machine for your jobsite in Pensacola.
-          </p>
-        </div>
-      </section>
+  const [featured, ...rest] = ARTICLES;
 
-      <section className="bg-brand-black py-20">
-        <div className="container">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3 max-w-6xl mx-auto">
-            {ARTICLES.map((art) => (
-              <div key={art.slug} className="group rounded-2xl border border-brand-surface-border bg-brand-charcoal overflow-hidden flex flex-col justify-between">
-                <div className="space-y-4">
-                  <div className="relative h-48 w-full bg-brand-black overflow-hidden">
+  return (
+    <>
+      <PageHero
+        eyebrow="Equipment guides & insights"
+        title={
+          <>
+            Equipment &amp; landscaping <span className="text-sun">resources.</span>
+          </>
+        }
+        description="Free guides and tips to help you pick the right machine for your jobsite in Pensacola."
+        breadcrumbs={[{ name: "Home", href: "/" }, { name: "Resources" }]}
+      />
+
+      <section className="bg-slate-50 py-20 lg:py-28">
+        <div className="container space-y-8">
+          <Reveal>
+            <Link
+              href={`/resources/${featured.slug}`}
+              className="group grid overflow-hidden rounded-[32px] border border-gray-200 bg-white shadow-card transition duration-500 hover:shadow-lift lg:grid-cols-2"
+            >
+              <div className="relative aspect-[16/10] overflow-hidden lg:aspect-auto lg:min-h-[420px]">
+                <Image
+                  src={featured.image}
+                  alt={featured.title}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+              <div className="flex flex-col justify-center space-y-5 p-8 sm:p-12">
+                <span className="eyebrow">Featured guide</span>
+                <h2 className="display text-3xl text-brand-black transition group-hover:text-brand-red sm:text-4xl">{featured.title}</h2>
+                <p className="text-base leading-relaxed text-gray-600">{featured.excerpt}</p>
+                <span className="inline-flex items-center gap-2 text-sm font-bold text-brand-blue">
+                  Read article <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </span>
+              </div>
+            </Link>
+          </Reveal>
+
+          <div className="grid gap-8 md:grid-cols-2">
+            {rest.map((art, idx) => (
+              <Reveal key={art.slug} delay={idx * 90}>
+                <Link
+                  href={`/resources/${art.slug}`}
+                  className="group flex h-full flex-col overflow-hidden rounded-[28px] border border-gray-200 bg-white shadow-card transition duration-500 hover:-translate-y-1 hover:shadow-lift"
+                >
+                  <div className="relative aspect-[16/9] overflow-hidden">
                     <Image
                       src={art.image}
                       alt={art.title}
                       fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
-                  <div className="p-6 space-y-2">
-                    <h2 className="font-heading text-xl font-bold text-white group-hover:text-brand-yellow transition">
-                      {art.title}
-                    </h2>
-                    <p className="text-xs text-gray-400 line-clamp-3 leading-relaxed">
-                      {art.excerpt}
-                    </p>
+                  <div className="flex flex-1 flex-col space-y-3 p-8">
+                    <h2 className="font-heading text-2xl font-bold text-brand-black transition group-hover:text-brand-red">{art.title}</h2>
+                    <p className="line-clamp-3 text-sm leading-relaxed text-gray-500">{art.excerpt}</p>
+                    <span className="mt-auto inline-flex items-center gap-2 pt-3 text-sm font-bold text-brand-blue">
+                      Read article <ArrowUpRight className="h-4 w-4" />
+                    </span>
                   </div>
-                </div>
-                <div className="p-6 pt-0">
-                  <Link
-                    href={`/resources/${art.slug}`}
-                    className="inline-flex items-center gap-2 text-xs font-bold text-brand-yellow hover:underline"
-                  >
-                    <span>Read Article</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
-                </div>
-              </div>
+                </Link>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }
