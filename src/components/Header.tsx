@@ -78,10 +78,10 @@ export function Header() {
       {/* Main navigation */}
       <header
         className={`sticky top-0 z-40 w-full border-b transition-all duration-300 ${
-          scrolled ? "border-gray-200/80 bg-white/85 shadow-[0_8px_30px_-12px_rgba(17,24,39,0.18)] backdrop-blur-xl" : "border-transparent bg-white"
+          scrolled ? "border-gray-200/80 bg-white/95 shadow-[0_8px_30px_-12px_rgba(17,24,39,0.18)] backdrop-blur-xl" : "border-transparent bg-white"
         }`}
       >
-        <div className={`container flex items-center justify-between gap-6 transition-all duration-300 ${scrolled ? "h-[72px]" : "h-[84px]"}`}>
+        <div className={`container flex items-center justify-between gap-6 transition-all duration-300 ${scrolled ? "h-[72px] lg:h-[84px]" : "h-[88px] lg:h-[112px]"}`}>
           <Link href="/" className="flex shrink-0 items-center" aria-label="Pensacola Equipment Rentals home">
             <Image
               src="/brand/logo.png"
@@ -89,7 +89,7 @@ export function Header() {
               width={394}
               height={290}
               priority
-              className={`w-auto transition-all duration-300 ${scrolled ? "h-12" : "h-[60px]"}`}
+              className={`w-auto transition-all duration-300 ${scrolled ? "h-14 lg:h-[68px]" : "h-[68px] lg:h-[92px]"}`}
             />
           </Link>
 
