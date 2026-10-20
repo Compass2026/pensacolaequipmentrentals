@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { EQUIPMENT_CATALOG } from "@/data/equipment";
-import { Send, CheckCircle2, PhoneCall } from "lucide-react";
+import { Send, CheckCircle2, PhoneCall, Loader2, AlertCircle } from "lucide-react";
 import { BUSINESS_INFO } from "@/data/business";
 
 interface QuoteFormProps {
@@ -16,6 +16,10 @@ export function QuoteForm({ preselectedEquipment, onSuccess, compact = false }: 
   const twoCol = compact ? "grid grid-cols-1 gap-5" : "grid grid-cols-1 gap-5 sm:grid-cols-2";
   const threeCol = compact ? "grid grid-cols-2 gap-5 [&>*:first-child]:col-span-2" : "grid grid-cols-1 gap-5 sm:grid-cols-3";
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  // Honeypot field: hidden from people, often filled in by bots.
+  const [company, setCompany] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -28,14 +32,36 @@ export function QuoteForm({ preselectedEquipment, onSuccess, compact = false }: 
     projectDetails: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form Submitted to GoHighLevel:", formData);
-    setSubmitted(true);
-    if (onSuccess) {
-      setTimeout(() => {
-        onSuccess();
-      }, 3000);
+    if (submitting) return;
+    setSubmitting(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, company }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || `We couldn't send your request. Please call or text ${BUSINESS_INFO.phone}.`);
+      }
+      setSubmitted(true);
+      if (onSuccess) {
+        setTimeout(() => {
+          onSuccess();
+        }, 4000);
+      }
+    } catch (err) {
+      setError(
+        err instanceof Error && err.message !== "Failed to fetch"
+          ? err.message
+          : `We couldn't send your request. Please call or text ${BUSINESS_INFO.phone}.`
+      );
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -65,7 +91,7 @@ export function QuoteForm({ preselectedEquipment, onSuccess, compact = false }: 
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="relative space-y-5">
       <div className={twoCol}>
         {/* Full Name */}
         <div>
@@ -226,9 +252,43 @@ export function QuoteForm({ preselectedEquipment, onSuccess, compact = false }: 
       </div>
 
       {/* Submit Button */}
-      <button type="submit" className="btn-primary group w-full !py-4 text-base">
-        <span>Check Availability &amp; Request Quote</span>
-        <Send className="h-4 w-4 transition group-hover:translate-x-1" />
+      {/* Honeypot */}
+      <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+        <label htmlFor="company">Company</label>
+        <input
+          type="text"
+          id="company"
+          name="company"
+          tabIndex={-1}
+          autoComplete="off"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+        />
+      </div>
+
+      {error && (
+        <div role="alert" className="flex items-start gap-3 rounded-xl border border-brand-red/30 bg-brand-red/5 p-4 text-sm text-brand-red-dark">
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+          <span>{error}</span>
+        </div>
+      )}
+
+      <button
+        type="submit"
+        disabled={submitting}
+        className="btn-primary group w-full !py-4 text-base disabled:cursor-wait disabled:opacity-80 disabled:hover:translate-y-0"
+      >
+        {submitting ? (
+          <>
+            <Loader2 className="h-4 w-4 animate-spin" />
+            <span>Sending…</span>
+          </>
+        ) : (
+          <>
+            <span>Check Availability &amp; Request Quote</span>
+            <Send className="h-4 w-4 transition group-hover:translate-x-1" />
+          </>
+        )}
       </button>
 
       <p className="text-center text-[11px] text-gray-400">
