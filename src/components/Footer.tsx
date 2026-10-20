@@ -17,42 +17,42 @@ export function Footer() {
   return (
     <footer className="relative isolate overflow-hidden bg-brand-black text-white/70">
       {/* CTA band */}
-      <div className="container pt-20">
-        <div className="relative overflow-hidden rounded-[32px] bg-brand-blue px-8 py-12 sm:px-12 lg:flex lg:items-center lg:justify-between lg:gap-10 lg:px-16 lg:py-14">
+      <div className="container pt-24">
+        <div className="relative overflow-hidden rounded-[32px] bg-brand-blue px-8 py-14 sm:px-12 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:px-20 lg:py-20">
           <div className="absolute inset-0 bg-blueprint opacity-60" />
           <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-sun opacity-60 blur-2xl" />
-          <div className="relative max-w-2xl space-y-3">
+          <div className="relative max-w-3xl space-y-4">
             <span className="eyebrow-light">Need reliable equipment fast?</span>
-            <h2 className="display text-3xl text-white sm:text-4xl lg:text-5xl">Let&apos;s get your project moving.</h2>
-            <p className="text-white/75">Mini excavators, skid steers &amp; trailers delivered across Pensacola.</p>
+            <h2 className="display text-4xl text-white sm:text-5xl lg:text-6xl">Let&apos;s get your project moving.</h2>
+            <p className="text-lg text-white/75">Mini excavators, skid steers &amp; trailers delivered across Pensacola.</p>
           </div>
           <div className="relative mt-8 flex flex-wrap gap-3 lg:mt-0 lg:shrink-0">
-            <a href={`tel:${BUSINESS_INFO.phoneRaw}`} className="btn-primary">
-              <Phone className="h-4 w-4" />
+            <a href={`tel:${BUSINESS_INFO.phoneRaw}`} className="btn-primary !px-8 !py-4 text-base">
+              <Phone className="h-5 w-5" />
               {BUSINESS_INFO.phone}
             </a>
-            <Link href="/request-a-quote" className="btn-outline-light">
+            <Link href="/request-a-quote" className="btn-outline-light !px-8 !py-4 text-base">
               Request availability
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-5 w-5" />
             </Link>
           </div>
         </div>
       </div>
 
       {/* Link columns */}
-      <div className="container py-20">
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-12">
-          <div className="space-y-6 lg:col-span-4">
+      <div className="container py-24 lg:py-28">
+        <div className="grid gap-14 sm:grid-cols-2 lg:grid-cols-12">
+          <div className="space-y-7 lg:col-span-4">
             <Link href="/" className="inline-block" aria-label="Pensacola Equipment Rentals home">
-              <Image src="/brand/logo.png" alt="Pensacola Equipment Rentals Logo" width={394} height={290} className="h-24 w-auto" />
+              <Image src="/brand/logo.png" alt="Pensacola Equipment Rentals Logo" width={394} height={290} className="h-32 w-auto lg:h-40" />
             </Link>
-            <p className="max-w-sm text-sm leading-relaxed text-white/55">{BUSINESS_INFO.story}</p>
-            <p className="max-w-sm text-xs leading-relaxed text-brand-yellow/90">{BUSINESS_INFO.deliveryNote}</p>
+            <p className="max-w-sm text-base leading-relaxed text-white/60">{BUSINESS_INFO.story}</p>
+            <p className="max-w-sm text-sm leading-relaxed text-brand-yellow/90">{BUSINESS_INFO.deliveryNote}</p>
           </div>
 
-          <div className="space-y-5 lg:col-span-3">
-            <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">Equipment</h3>
-            <ul className="space-y-3 text-sm">
+          <div className="space-y-6 lg:col-span-3">
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white">Equipment</h3>
+            <ul className="space-y-3.5 text-base">
               {EQUIPMENT_CATALOG.map((item) => (
                 <li key={item.id}>
                   <Link href={`/equipment/${item.slug}`} className="transition hover:text-white">
@@ -63,9 +63,9 @@ export function Footer() {
             </ul>
           </div>
 
-          <div className="space-y-5 lg:col-span-2">
-            <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">Company</h3>
-            <ul className="space-y-3 text-sm">
+          <div className="space-y-6 lg:col-span-2">
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white">Company</h3>
+            <ul className="space-y-3.5 text-base">
               {COMPANY_LINKS.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="transition hover:text-white">
@@ -74,8 +74,8 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-            <h3 className="pt-4 text-[11px] font-bold uppercase tracking-[0.2em] text-white">Service areas</h3>
-            <ul className="space-y-3 text-sm">
+            <h3 className="pt-4 text-xs font-bold uppercase tracking-[0.2em] text-white">Service areas</h3>
+            <ul className="space-y-3.5 text-base">
               {BUSINESS_INFO.serviceAreas.map((area) => (
                 <li key={area.slug}>
                   <Link href={`/service-areas/${area.slug}`} className="transition hover:text-white">
@@ -86,21 +86,21 @@ export function Footer() {
             </ul>
           </div>
 
-          <div className="space-y-5 lg:col-span-3">
-            <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">Get in touch</h3>
-            <ul className="space-y-4 text-sm">
+          <div className="space-y-6 lg:col-span-3">
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white">Get in touch</h3>
+            <ul className="space-y-6 text-base">
               <li>
                 <a href={`tel:${BUSINESS_INFO.phoneRaw}`} className="group flex items-start gap-3 transition hover:text-white">
-                  <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand-red" />
+                  <Phone className="mt-1 h-5 w-5 shrink-0 text-brand-red" />
                   <span>
-                    <span className="block font-heading text-lg font-bold text-white">{BUSINESS_INFO.phone}</span>
-                    <span className="text-xs">Call or text the owners</span>
+                    <span className="block font-heading text-2xl font-bold text-white">{BUSINESS_INFO.phone}</span>
+                    <span className="text-sm">Call or text the owners</span>
                   </span>
                 </a>
               </li>
               <li>
                 <a href={`mailto:${BUSINESS_INFO.email}`} className="flex items-center gap-3 break-all transition hover:text-white">
-                  <Mail className="h-4 w-4 shrink-0 text-brand-red" />
+                  <Mail className="h-5 w-5 shrink-0 text-brand-red" />
                   {BUSINESS_INFO.email}
                 </a>
               </li>
@@ -111,13 +111,13 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="flex items-start gap-3 transition hover:text-white"
                 >
-                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-red" />
+                  <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-brand-red" />
                   <span>
                     {BUSINESS_INFO.address.street}
                     <br />
                     {BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state} {BUSINESS_INFO.address.zip}
-                    <span className="mt-1 flex items-center gap-1 text-xs font-semibold text-brand-yellow">
-                      Get directions <ArrowUpRight className="h-3 w-3" />
+                    <span className="mt-1.5 flex items-center gap-1 text-sm font-semibold text-brand-yellow">
+                      Get directions <ArrowUpRight className="h-3.5 w-3.5" />
                     </span>
                   </span>
                 </a>
@@ -127,17 +127,30 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Oversized wordmark */}
-      <div className="pointer-events-none select-none overflow-hidden" aria-hidden>
-        <div className="container">
-          <div className="translate-y-[18%] text-center font-heading text-[15vw] font-extrabold uppercase leading-none tracking-[-0.05em] text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.08)] 2xl:text-[13rem]">
-            Pensacola
-          </div>
+      {/* Oversized wordmark, outlined in brand orange and stretched to the full container width */}
+      <div className="pointer-events-none select-none" aria-hidden>
+        <div className="container pb-10 lg:pb-14">
+          <svg viewBox="0 0 1000 124" className="h-auto w-full overflow-visible">
+            <text
+              x="500"
+              y="118"
+              textAnchor="middle"
+              textLength="1000"
+              lengthAdjust="spacingAndGlyphs"
+              fill="none"
+              stroke="#D74E31"
+              strokeWidth="1.5"
+              vectorEffect="non-scaling-stroke"
+              style={{ fontFamily: "var(--font-geologica), sans-serif", fontWeight: 800, fontSize: 159 }}
+            >
+              PENSACOLA
+            </text>
+          </svg>
         </div>
       </div>
 
       <div className="relative border-t border-white/10 bg-brand-black">
-        <div className="container flex flex-col items-center justify-between gap-4 pb-28 pt-6 text-xs text-white/45 md:flex-row md:pb-6">
+        <div className="container flex flex-col items-center justify-between gap-4 pb-28 pt-7 text-sm text-white/45 md:flex-row md:pb-7">
           <p>
             © {new Date().getFullYear()} {BUSINESS_INFO.legalName}. All rights reserved.
           </p>
