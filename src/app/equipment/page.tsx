@@ -25,7 +25,7 @@ export default function EquipmentPage() {
         description="From 2023 Bobcat mini excavators to enclosed-cab track loaders, 14-foot dump trailers and commercial mowers — with transparent daily, weekly and monthly rates."
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Equipment" }]}
         image={{
-          src: "https://www.bnbcoastalcuts.com/wp-content/uploads/2025/05/Pensacola-Equipment-1-2.png",
+          src: "/images/equipment/bobcat-t66-skid-steer.png",
           alt: "Bobcat T66 track loader available for rent in Pensacola",
         }}
       >

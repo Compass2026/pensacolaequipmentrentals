@@ -15,7 +15,7 @@ export function LandClearingSection() {
   return (
     <section className="relative isolate overflow-hidden bg-brand-black py-28 text-white lg:py-36">
       <Image
-        src="https://www.bnbcoastalcuts.com/wp-content/uploads/2025/05/448692327_122093289428383926_1578460628476692250_n.jpg"
+        src="/images/site/mini-excavator-jobsite.jpg"
         alt=""
         fill
         sizes="100vw"

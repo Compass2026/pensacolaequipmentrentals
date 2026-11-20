@@ -30,7 +30,7 @@ export function ServiceAreaTemplate({ city, description, catalogTitle, catalogIn
         description={description}
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Service Areas", href: "/service-areas" }, { name: `${city}, FL` }]}
         image={{
-          src: "https://www.bnbcoastalcuts.com/wp-content/uploads/2025/05/Untitled-design-4.png",
+          src: "/images/equipment/iron-bull-dump-trailer.png",
           alt: `Iron Bull dump trailer delivered to ${city}, FL`,
         }}
       >

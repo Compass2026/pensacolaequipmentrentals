@@ -39,8 +39,22 @@ During the comprehensive audit of the live WordPress website (`https://www.bnbco
 
 ---
 
-## 4. Summary of Business Confirmations Needed
+## 4. Blog Posts and Privacy Policy (migrated Nov 2026)
+
+### ISSUE #5: Old phone numbers in four blog posts
+* **Live posts**: "How to Prepare Your Property…", "How to Find a Trustworthy Equipment Rental Company…", "Top 5 Projects…" and "Top 7 Reasons to Rent vs. Buy…" ask readers to call **850-637-4442**; "Top 7 Reasons" also lists **573-864-8356**.
+* **Implementation Action**: Migrated posts in `data/blog-posts.json` use **850-407-6566** only; the 573 number was dropped.
+
+### ISSUE #6: The "Privacy Policy" page is a Terms of Service
+* **Live page** `/privacy-policy/` (last updated June 15th, 2025) is titled Privacy Policy but its text is a Terms of Service, and section 1 lists "solar sales, installations, consultations" as services; its contact phone is 850-637-4442.
+* **Implementation Action**: `/privacy-policy/` reproduces the live text verbatim except the contact block, which uses `BUSINESS_INFO` (850-407-6566).
+* **Action Required**: Owner (or counsel) should replace it with an actual privacy policy and remove the solar wording.
+
+---
+
+## 5. Summary of Business Confirmations Needed
 
 1. **Iron Bull Dump Trailer**: Confirm weekly rental rate ($600 vs $275).
 2. **Primary Phone Number**: Confirm `850-407-6566` is the sole active phone line.
-3. **Delivery Radius**: Legacy site states "Prices include drop-off and pick-up within 20 miles of Pensacola. Will go farther for additional cost." (Verified & preserved).
+3. **Privacy Policy**: Replace the Terms-of-Service text (with its "solar sales" line) with a real privacy policy.
+4. **Delivery Radius**: Legacy site states "Prices include drop-off and pick-up within 20 miles of Pensacola. Will go farther for additional cost." (Verified & preserved).
