@@ -129,7 +129,11 @@ export default async function EquipmentDetailPage({ params }: Props) {
               </div>
 
               {rateTiles.length > 0 ? (
-                <div className="grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-gray-200 bg-gray-200">
+                <div
+                  className={`grid gap-px overflow-hidden rounded-2xl border border-gray-200 bg-gray-200 ${
+                    rateTiles.length === 1 ? "grid-cols-1" : rateTiles.length === 2 ? "grid-cols-2" : "grid-cols-3"
+                  }`}
+                >
                   {rateTiles.slice(0, 3).map((tile, idx) => (
                     <div key={tile.label} className="bg-white p-4">
                       <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-gray-400">{tile.label}</div>
