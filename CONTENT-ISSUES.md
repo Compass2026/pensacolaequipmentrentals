@@ -39,8 +39,25 @@ During the comprehensive audit of the live WordPress website (`https://www.bnbco
 
 ---
 
-## 4. Summary of Business Confirmations Needed
+## 4. Blog Posts and Privacy Policy (migrated Nov 2026)
 
-1. **Iron Bull Dump Trailer**: Confirm weekly rental rate ($600 vs $275).
-2. **Primary Phone Number**: Confirm `850-407-6566` is the sole active phone line.
-3. **Delivery Radius**: Legacy site states "Prices include drop-off and pick-up within 20 miles of Pensacola. Will go farther for additional cost." (Verified & preserved).
+### ISSUE #5: Old phone numbers in four blog posts
+* **Live posts**: "How to Prepare Your Property…", "How to Find a Trustworthy Equipment Rental Company…", "Top 5 Projects…" and "Top 7 Reasons to Rent vs. Buy…" ask readers to call **850-637-4442**; "Top 7 Reasons" also lists **573-864-8356**.
+* **Implementation Action**: Migrated posts in `data/blog-posts.json` use **850-407-6566** only; the 573 number was dropped.
+
+### ISSUE #6: The "Privacy Policy" page is a Terms of Service
+* **Live page** `/privacy-policy/` (last updated June 15th, 2025) is titled Privacy Policy but its text is a Terms of Service, and section 1 lists "solar sales, installations, consultations" as services; its contact phone is 850-637-4442.
+* **Implementation Action**: The copied solar-services wording was removed first; `/privacy-policy/` is now an actual privacy policy **draft** written from what the Next.js site does (quote form fields, emailed via Resend to the business and Compass Marketing, no database, in-memory rate limit, optional Google Analytics, Google Maps embed on `/contact/`, Vercel hosting, no first-party cookies or browser storage). Effective date reads "Draft — pending owner review".
+* **Action Required**: Owner review and approval of the draft (counsel if desired); then set the effective date in `src/app/privacy-policy/page.tsx`.
+
+---
+
+## 5. Summary of Business Confirmations Needed
+
+Status as of Nov 2026. Items marked **OPEN** still need the owner.
+
+1. **OPEN — Iron Bull Dump Trailer weekly rate**: the homepage said `$600`/week, the `/equipment/` page `$275`/week. `src/data/equipment.ts` still uses `$600` (unchanged) until the owner confirms which is right.
+2. **OPEN — Phone number**: confirm `850-407-6566` is the only active line. The live WordPress header dialed `850-637-4442` and four migrated blog posts used it; "Top 7 Reasons to Rent vs. Buy" also listed `573-864-8356`. Both were removed — the site uses `850-407-6566` everywhere.
+3. **OPEN — Privacy policy**: `/privacy-policy/` is a draft written from what the site does. It needs the owner's approval (and counsel's, if wanted) before the "Draft — pending owner review" effective date is replaced.
+4. **OPEN — GA4 measurement ID**: no GA4 property / measurement ID has been created yet, so `NEXT_PUBLIC_GA_ID` is unset and no analytics tag loads. Once it is set, the privacy policy's "Google Analytics (if enabled)" section applies.
+5. **Delivery Radius** (verified, no action): legacy site states "Prices include drop-off and pick-up within 20 miles of Pensacola. Will go farther for additional cost." Preserved.

@@ -41,7 +41,7 @@ export default function AboutPage() {
               <div className="absolute -left-6 -top-6 h-40 w-40 rounded-full bg-sun opacity-90" />
               <div className="relative aspect-[4/5] overflow-hidden rounded-[32px] shadow-lift">
                 <Image
-                  src="https://www.bnbcoastalcuts.com/wp-content/uploads/2025/05/pensacola1.jpg"
+                  src="/images/site/bobcat-e26-and-t66-land-clearing.jpg"
                   alt="Pensacola Equipment Rentals team at work"
                   fill
                   sizes="(min-width: 1024px) 45vw, 100vw"

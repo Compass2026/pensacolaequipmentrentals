@@ -33,7 +33,7 @@ export function WhyChooseUs() {
             <div className="absolute -left-10 -top-10 h-56 w-56 rounded-full bg-sun opacity-80 blur-[2px]" />
             <div className="relative aspect-[3/4] w-[82%] overflow-hidden rounded-[28px] border border-white/10 shadow-2xl">
               <Image
-                src="https://www.bnbcoastalcuts.com/wp-content/uploads/2025/05/pensacola2.jpg"
+                src="/images/site/bobcat-t66-grading-red-clay.jpg"
                 alt="Bobcat track loader grading red clay on a Pensacola jobsite"
                 fill
                 sizes="(min-width: 1024px) 35vw, 80vw"
@@ -42,7 +42,7 @@ export function WhyChooseUs() {
             </div>
             <div className="absolute -bottom-10 right-0 aspect-[3/4] w-[52%] overflow-hidden rounded-[24px] border-[6px] border-brand-navy shadow-2xl">
               <Image
-                src="https://www.bnbcoastalcuts.com/wp-content/uploads/2025/05/pensacola1.jpg"
+                src="/images/site/bobcat-e26-and-t66-land-clearing.jpg"
                 alt="Bobcat mini excavator and skid steer clearing a lot"
                 fill
                 sizes="(min-width: 1024px) 20vw, 50vw"

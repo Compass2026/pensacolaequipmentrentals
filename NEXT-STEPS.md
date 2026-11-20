@@ -17,7 +17,7 @@
    * Build out detailed content for `/service-areas/pensacola-fl`, `/service-areas/gulf-breeze-fl`, `/service-areas/milton-fl`, and `/service-areas/navarre-fl` with custom local job stories and distance delivery calculators.
 2. **GoHighLevel (LeadConnector) Form Activation**:
    * Connect live GHL webhook or embed form `wi42vrSXhsIIyErqECdb` to handle automated SMS response and email notifications upon quote submission.
-3. **Blog / Resource Migration**:
-   * Migrate the 3 existing blog articles into MDX / dynamic resource pages under `/resources/`.
+3. **Blog Migration — done (Nov 2026)**:
+   * All 10 WordPress posts live at their original root permalinks from `data/blog-posts.json` on the Compass `json_blog` contract (`compass-blog.json`); `/blog/` lists them and `/resources` redirects there. Approved Compass articles are appended to the same file by the CRM publisher. `npm run check:blog` checks every article after a build.
 4. **Vercel Production Deployment**:
    * Connect GitHub repository to Vercel, set up custom domain DNS records, and verify SSL certificates.

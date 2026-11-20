@@ -11,7 +11,7 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: "#F5B93F",
     icons: [
       {
-        src: "https://www.bnbcoastalcuts.com/wp-content/uploads/2025/05/cropped-Untitled-design-192x192.png",
+        src: "/images/brand/icon-192.png",
         sizes: "192x192",
         type: "image/png",
       },

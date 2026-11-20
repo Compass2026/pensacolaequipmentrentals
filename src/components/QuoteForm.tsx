@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { EQUIPMENT_CATALOG } from "@/data/equipment";
 import { Send, CheckCircle2, PhoneCall, Loader2, AlertCircle } from "lucide-react";
 import { BUSINESS_INFO } from "@/data/business";
+import { trackEvent } from "@/lib/analytics";
 
 interface QuoteFormProps {
   preselectedEquipment?: string;
@@ -39,7 +41,7 @@ export function QuoteForm({ preselectedEquipment, onSuccess, compact = false }: 
     setError("");
 
     try {
-      const res = await fetch("/api/quote", {
+      const res = await fetch("/api/quote/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...formData, company }),
@@ -49,6 +51,7 @@ export function QuoteForm({ preselectedEquipment, onSuccess, compact = false }: 
         throw new Error(data?.error || `We couldn't send your request. Please call or text ${BUSINESS_INFO.phone}.`);
       }
       setSubmitted(true);
+      trackEvent("form_submit", { form_name: "quote", equipment: formData.equipment, duration: formData.duration });
       if (onSuccess) {
         setTimeout(() => {
           onSuccess();
@@ -292,7 +295,11 @@ export function QuoteForm({ preselectedEquipment, onSuccess, compact = false }: 
       </button>
 
       <p className="text-center text-[11px] text-gray-400">
-        By submitting, you agree to receive follow-up contact regarding your equipment request. We respect your privacy.
+        By submitting, you agree to receive follow-up contact regarding your equipment request. See our{" "}
+        <Link href="/privacy-policy/" className="underline hover:text-gray-600">
+          Privacy Policy
+        </Link>
+        .
       </p>
     </form>
   );

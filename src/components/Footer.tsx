@@ -8,7 +8,7 @@ const COMPANY_LINKS = [
   { name: "About us", href: "/about" },
   { name: "Land clearing", href: "/land-clearing" },
   { name: "Customer reviews", href: "/reviews" },
-  { name: "Resources", href: "/resources" },
+  { name: "Blog", href: "/blog" },
   { name: "Request a quote", href: "/request-a-quote" },
   { name: "Contact", href: "/contact" },
 ];

@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
+import { Analytics } from "@/components/Analytics";
 import { generateLocalBusinessSchema } from "@/lib/jsonld";
 
 // Self-hosted Google Fonts (latin variable subsets) so builds don't depend on fetching fonts.googleapis.com.
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
     description: "Rent reliable excavators, skid steers, trailers, mowers & tools with convenient delivery from a local father-and-son team.",
     images: [
       {
-        url: "https://www.bnbcoastalcuts.com/wp-content/uploads/2025/07/Untitled-500-x-500-px.png",
+        url: "/images/brand/logo-500.png",
         width: 500,
         height: 500,
         alt: "Pensacola Equipment Rentals Logo",
@@ -63,7 +64,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Pensacola Equipment Rentals",
     description: "Dependable equipment rentals and land clearing delivered in Pensacola, FL.",
-    images: ["https://www.bnbcoastalcuts.com/wp-content/uploads/2025/07/Untitled-500-x-500-px.png"],
+    images: ["/images/brand/logo-500.png"],
   },
   robots: {
     index: true,
@@ -94,6 +95,7 @@ export default function RootLayout({
         <main className="flex-grow">{children}</main>
         <Footer />
         <MobileStickyBar />
+        <Analytics />
       </body>
     </html>
   );

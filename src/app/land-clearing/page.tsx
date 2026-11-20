@@ -55,7 +55,7 @@ export default function LandClearingPage() {
         description="Don't want to operate heavy machinery yourself? Hire our father-and-son crew to handle brush removal, tree clearing, stump digging and lot prep."
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Land Clearing" }]}
         image={{
-          src: "https://www.bnbcoastalcuts.com/wp-content/uploads/2025/05/Untitled-1000-x-1000-px.png",
+          src: "/images/equipment/bobcat-e26-mini-excavator.png",
           alt: "Bobcat mini excavator used for land clearing in Pensacola",
         }}
       >
@@ -104,7 +104,7 @@ export default function LandClearingPage() {
             <Reveal className="grid grid-cols-2 gap-4">
               <div className="relative aspect-[3/4] overflow-hidden rounded-[28px] shadow-lift">
                 <Image
-                  src="https://www.bnbcoastalcuts.com/wp-content/uploads/2025/05/pensacola1.jpg"
+                  src="/images/site/bobcat-e26-and-t66-land-clearing.jpg"
                   alt="Mini excavator and track loader clearing a lot near Pensacola"
                   fill
                   sizes="(min-width: 1024px) 25vw, 50vw"
@@ -113,7 +113,7 @@ export default function LandClearingPage() {
               </div>
               <div className="relative mt-12 aspect-[3/4] overflow-hidden rounded-[28px] shadow-lift">
                 <Image
-                  src="https://www.bnbcoastalcuts.com/wp-content/uploads/2025/05/pensacola2.jpg"
+                  src="/images/site/bobcat-t66-grading-red-clay.jpg"
                   alt="Track loader grading cleared land in Pensacola"
                   fill
                   sizes="(min-width: 1024px) 25vw, 50vw"
