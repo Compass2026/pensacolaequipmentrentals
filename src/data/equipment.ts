@@ -444,7 +444,7 @@ export const EQUIPMENT_CATALOG: EquipmentItem[] = [
       "Exterior siding & soffit work",
     ],
     deliveryInfo: "Call or text 850-407-6566 to arrange pickup or delivery.",
-    primaryImage: "/images/equipment/steel-frame-scaffolding.png",
+    primaryImage: "/images/equipment/scaffolding.png",
     imageAltText: "Two-section steel frame scaffolding with cross braces and plank decks",
     availabilityLabel: "Available Now",
     seoTitle: "Scaffolding Rental Pensacola FL",
