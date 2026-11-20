@@ -52,12 +52,25 @@ During the comprehensive audit of the live WordPress website (`https://www.bnbco
 
 ---
 
-## 5. Summary of Business Confirmations Needed
+## 5. Reviews, rating and social links (fixed Nov 2026)
+
+### ISSUE #7: Invented testimonials
+* **Problem**: The redesign shipped four made-up reviews ("Mark S.", "David L.", "Robert T.", "Chris M.") and a "5.0" rating. The live site shows real Google reviews through a Trustindex widget.
+* **Implementation Action**: `src/data/reviews.ts` now holds the 10 reviews from that widget, word for word, with names and posting month. The rating reads **4.9 from 27 Google reviews** (Google Business Profile, Sept 2026) and `/reviews/` links to the profile and to "leave a review". Update `GOOGLE_RATING` when the numbers change. Don't add reviews that aren't on Google.
+
+### ISSUE #8: Placeholder social links in structured data
+* **Problem**: The LocalBusiness JSON-LD `sameAs` pointed at `https://www.facebook.com/` and `https://twitter.com/` (platform homepages, not the business).
+* **Implementation Action**: `sameAs` now lists the Google Business Profile only. The WordPress site links no social accounts; add the real Facebook URL to `BUSINESS_INFO.profiles` if there is one.
+
+---
+
+## 6. Summary of Business Confirmations Needed
 
 Status as of Nov 2026. Items marked **OPEN** still need the owner.
 
 1. **OPEN — Iron Bull Dump Trailer weekly rate**: the homepage said `$600`/week, the `/equipment/` page `$275`/week. `src/data/equipment.ts` still uses `$600` (unchanged) until the owner confirms which is right.
-2. **OPEN — Phone number**: confirm `850-407-6566` is the only active line. The live WordPress header dialed `850-637-4442` and four migrated blog posts used it; "Top 7 Reasons to Rent vs. Buy" also listed `573-864-8356`. Both were removed — the site uses `850-407-6566` everywhere.
+2. **Mostly resolved — Phone number**: the Google Business Profile lists `850-407-6566`. Still worth confirming `850-407-6566` is the only active line. The live WordPress header dialed `850-637-4442` and four migrated blog posts used it; "Top 7 Reasons to Rent vs. Buy" also listed `573-864-8356`. Both were removed — the site uses `850-407-6566` everywhere.
 3. **OPEN — Privacy policy**: `/privacy-policy/` is a draft written from what the site does. It needs the owner's approval (and counsel's, if wanted) before the "Draft — pending owner review" effective date is replaced.
 4. **OPEN — GA4 measurement ID**: no GA4 property / measurement ID has been created yet, so `NEXT_PUBLIC_GA_ID` is unset and no analytics tag loads. Once it is set, the privacy policy's "Google Analytics (if enabled)" section applies.
-5. **Delivery Radius** (verified, no action): legacy site states "Prices include drop-off and pick-up within 20 miles of Pensacola. Will go farther for additional cost." Preserved.
+5. **OPEN — GoHighLevel**: the WordPress quote form fed GoHighLevel form `wi42vrSXhsIIyErqECdb`. The new form emails quotes and, once `GHL_WEBHOOK_URL` is set in Vercel (a GHL workflow's Inbound Webhook URL), also posts each quote to GoHighLevel. Redeploy after setting it.
+6. **Delivery Radius** (verified, no action): legacy site states "Prices include drop-off and pick-up within 20 miles of Pensacola. Will go farther for additional cost." Preserved.

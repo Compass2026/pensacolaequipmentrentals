@@ -16,6 +16,10 @@ import { BUSINESS_INFO } from "@/data/business";
      Resend from send.compassmarketing.ai to QUOTE_RECIPIENT (default: the
      business inbox and Compass Marketing). No database; nothing stored by the
      site. The visitor's IP is held in server memory for a 10-minute rate limit.
+     When GHL_WEBHOOK_URL is set, the same fields are also sent to the
+     business's GoHighLevel account (CRM, texts and email follow-up); the
+     paragraph below about GoHighLevel only renders then. Env changes need a
+     redeploy for this static page to pick them up.
    - Google Analytics 4 only when NEXT_PUBLIC_GA_ID is set (src/lib/analytics.ts,
      src/components/Analytics.tsx): page views, `phone_click`, `form_submit`
      (form name, equipment, duration — no contact details).
@@ -46,6 +50,7 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
 
 export default function PrivacyPolicyPage() {
   const name = BUSINESS_INFO.name;
+  const usesGhl = Boolean(process.env.GHL_WEBHOOK_URL?.trim());
   return (
     <>
       <PageHero
@@ -89,13 +94,20 @@ export default function PrivacyPolicyPage() {
 
           <Section title="Who receives your quote request">
             <p>
-              The website does not store quote requests in a database. When you press submit, the details are sent as
+              The website itself does not store quote requests in a database. When you press submit, the details are sent as
               an email to {name} and to our marketing agency, Compass Marketing, which builds and runs this website for
               us and makes sure requests arrive. The email is delivered through Resend, an email delivery service.
               Our inbox is hosted by Google (Gmail).
             </p>
+            {usesGhl && (
+              <p>
+                Your request is also added to our customer management system, GoHighLevel, where we keep a record of
+                the request and may send you text messages or emails about it by the contact method you chose. You can
+                reply STOP to any text from us to stop further texts.
+              </p>
+            )}
             <p>
-              These providers handle the information only to deliver and store those emails, under their own privacy
+              These providers handle the information only to {usesGhl ? "deliver, store and manage those requests" : "deliver and store those emails"}, under their own privacy
               policies.
             </p>
           </Section>

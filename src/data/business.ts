@@ -26,10 +26,9 @@ export const BUSINESS_INFO = {
     { name: "Milton", slug: "milton-fl", state: "FL" },
     { name: "Navarre", slug: "navarre-fl", state: "FL" },
   ],
-  socials: {
-    facebook: "https://www.facebook.com/",
-    twitter: "https://twitter.com/",
-    youtube: "https://www.youtube.com/",
-  },
+  /* Profiles that belong to this business, used as schema.org sameAs. The
+     WordPress site linked no social accounts; add the real Facebook (or other)
+     profile URL here when there is one. Never put a bare platform homepage. */
+  profiles: ["https://www.google.com/maps?cid=9161359117850950736"],
   ghlFormId: "wi42vrSXhsIIyErqECdb",
 };
