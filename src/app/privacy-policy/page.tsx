@@ -4,7 +4,9 @@ import { BUSINESS_INFO } from "@/data/business";
 
 /* The text of the WordPress /privacy-policy/ page (last updated June 15th,
    2025), kept at the same URL. Contact details come from BUSINESS_INFO so the
-   phone matches the rest of the site (the WordPress page listed 850-637-4442). */
+   phone matches the rest of the site (the WordPress page listed 850-637-4442).
+   Section 1 on WordPress listed "solar sales, installations, consultations",
+   copied from another business; it now names this business's services. */
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "Privacy policy and terms of service for Pensacola Equipment Rentals, an equipment rental and land clearing company in Pensacola, FL.",
@@ -19,7 +21,7 @@ const SECTIONS: { heading: string; paragraphs: string[] }[] = [
   {
     "heading": "1. Agreement to Terms",
     "paragraphs": [
-      "These Terms govern your access to and use of the Website https://www.bnbcoastalcuts.com/ and any services provided by Pensacola Equipment Rentals, including but not limited to solar sales, installations, consultations, and related services. By submitting information or contacting us through our Website, you agree to these Terms."
+      "These Terms govern your access to and use of the Website https://www.bnbcoastalcuts.com/ and any services provided by Pensacola Equipment Rentals, including equipment rental (mini excavators, skid steers and track loaders, dump trailers, zero-turn mowers, chainsaws and backpack sprayers), equipment delivery and pickup, land clearing, and related services. By submitting information or contacting us through our Website, you agree to these Terms."
     ]
   },
   {

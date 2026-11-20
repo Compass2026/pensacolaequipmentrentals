@@ -47,7 +47,7 @@ During the comprehensive audit of the live WordPress website (`https://www.bnbco
 
 ### ISSUE #6: The "Privacy Policy" page is a Terms of Service
 * **Live page** `/privacy-policy/` (last updated June 15th, 2025) is titled Privacy Policy but its text is a Terms of Service, and section 1 lists "solar sales, installations, consultations" as services; its contact phone is 850-637-4442.
-* **Implementation Action**: `/privacy-policy/` reproduces the live text verbatim except the contact block, which uses `BUSINESS_INFO` (850-407-6566).
+* **Implementation Action**: `/privacy-policy/` reproduces the live text except the contact block, which uses `BUSINESS_INFO` (850-407-6566), and section 1, where the copied solar-services wording is replaced with this business's services (equipment rental, delivery and pickup, land clearing).
 * **Action Required**: Owner (or counsel) should replace it with an actual privacy policy and remove the solar wording.
 
 ---
