@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { EQUIPMENT_CATALOG } from "@/data/equipment";
 import { Send, CheckCircle2, PhoneCall, Loader2, AlertCircle } from "lucide-react";
 import { BUSINESS_INFO } from "@/data/business";
@@ -294,7 +295,11 @@ export function QuoteForm({ preselectedEquipment, onSuccess, compact = false }: 
       </button>
 
       <p className="text-center text-[11px] text-gray-400">
-        By submitting, you agree to receive follow-up contact regarding your equipment request. We respect your privacy.
+        By submitting, you agree to receive follow-up contact regarding your equipment request. See our{" "}
+        <Link href="/privacy-policy/" className="underline hover:text-gray-600">
+          Privacy Policy
+        </Link>
+        .
       </p>
     </form>
   );
