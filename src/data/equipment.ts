@@ -96,7 +96,7 @@ export const EQUIPMENT_CATALOG: EquipmentItem[] = [
     primaryImage: "/images/equipment/bobcat-e26-mini-excavator.png",
     imageAltText: "2023 Bobcat E26 Mini Excavator with open cab and hydraulic thumb",
     availabilityLabel: "Available Now",
-    seoTitle: "Bobcat E26 Mini Excavator Rental Pensacola FL | Pensacola Equipment Rentals",
+    seoTitle: "Bobcat E26 Mini Excavator Rental Pensacola FL",
     metaDescription: "Rent a 2023 Bobcat E26 Mini Excavator with hydraulic thumb and dual buckets in Pensacola, FL. Fast delivery to job sites. Daily, weekly & monthly rates.",
     pageHeading: "2023 Bobcat E26 Mini Excavator Rental in Pensacola",
     faqs: [
@@ -159,7 +159,7 @@ export const EQUIPMENT_CATALOG: EquipmentItem[] = [
     primaryImage: "/images/equipment/bobcat-t66-skid-steer.png",
     imageAltText: "2023 Bobcat T66 enclosed cab track skid steer loader",
     availabilityLabel: "Available Now",
-    seoTitle: "Bobcat T66 Skid Steer Rental Pensacola FL | Pensacola Equipment Rentals",
+    seoTitle: "Bobcat T66 Skid Steer Rental Pensacola FL",
     metaDescription: "Rent a 2023 Bobcat T66 enclosed cab track loader in Pensacola, FL. Air conditioned cab, grapple bucket & fork options. Daily, weekly & monthly rates.",
     pageHeading: "2023 Bobcat T66 Skid Steer Rental in Pensacola",
     faqs: [
@@ -214,7 +214,7 @@ export const EQUIPMENT_CATALOG: EquipmentItem[] = [
     primaryImage: "/images/equipment/kubota-svl-skid-steer.png",
     imageAltText: "Kubota SVL Series enclosed cab track skid loader",
     availabilityLabel: "Available Now",
-    seoTitle: "Kubota SVL Skid Steer Rental Pensacola FL | Pensacola Equipment Rentals",
+    seoTitle: "Kubota SVL Skid Steer Rental Pensacola FL",
     metaDescription: "Rent a Kubota SVL enclosed cab track skid steer in Pensacola, FL. Powerful hydraulics for land clearing & grading. Delivery available.",
     pageHeading: "Kubota SVL Skid Steer Rental in Pensacola",
     faqs: [
@@ -271,7 +271,7 @@ export const EQUIPMENT_CATALOG: EquipmentItem[] = [
     primaryImage: "/images/equipment/iron-bull-dump-trailer.png",
     imageAltText: "2022 Iron Bull 7 by 14 foot hydraulic dump trailer",
     availabilityLabel: "Available Now",
-    seoTitle: "Dump Trailer Rental Pensacola FL | 7x14 Iron Bull | Pensacola Equipment Rentals",
+    seoTitle: "Dump Trailer Rental Pensacola FL | 7x14 Iron Bull",
     metaDescription: "Rent a 7'x14' Iron Bull hydraulic dump trailer in Pensacola, FL. Self-tow or full delivery & pickup service. Ideal for dirt, roof, and yard debris.",
     pageHeading: "2022 Iron Bull 7' x 14' Hydraulic Dump Trailer Rental",
     faqs: [
@@ -363,7 +363,7 @@ export const EQUIPMENT_CATALOG: EquipmentItem[] = [
     primaryImage: "/images/equipment/stihl-backpack-sprayer.png",
     imageAltText: "Stihl SG 20 manual backpack sprayer for landscaping",
     availabilityLabel: "Available Now",
-    seoTitle: "Stihl Backpack Sprayer Rental Pensacola FL | Pensacola Equipment Rentals",
+    seoTitle: "Stihl Backpack Sprayer Rental Pensacola FL",
     metaDescription: "Rent a Stihl SG 20 manual backpack sprayer in Pensacola, FL. Ideal for weed control, fertilizing, and property spraying. Call for daily rates.",
     pageHeading: "Stihl Backpack Sprayer Rental",
     faqs: [
@@ -405,7 +405,7 @@ export const EQUIPMENT_CATALOG: EquipmentItem[] = [
     primaryImage: "/images/equipment/stihl-chainsaw.png",
     imageAltText: "Stihl gas-powered heavy duty chainsaw",
     availabilityLabel: "Available Now",
-    seoTitle: "Stihl Chainsaw Rental Pensacola FL | Pensacola Equipment Rentals",
+    seoTitle: "Stihl Chainsaw Rental Pensacola FL",
     metaDescription: "Rent a powerful Stihl gas chainsaw in Pensacola, FL for tree trimming, storm cleanup, and land clearing. Call 850-407-6566 for rental rates.",
     pageHeading: "Stihl Chainsaw Rental in Pensacola",
     faqs: [

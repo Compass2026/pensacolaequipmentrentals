@@ -6,7 +6,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Phone, Mail, MapPin, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Contact Pensacola Equipment Rentals | Call 850-407-6566",
+  title: "Contact Us | Call or Text 850-407-6566",
+  alternates: { canonical: "/contact/" },
   description: "Contact Pensacola Equipment Rentals for equipment availability, rental rates, and land clearing quotes in Pensacola, FL. Call or text 850-407-6566.",
 };
 
@@ -56,7 +57,7 @@ export default function ContactPage() {
 
       <section className="bg-slate-50 py-20 lg:py-28">
         <div className="container">
-          <div className="grid gap-10 lg:grid-cols-12">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
             <div className="space-y-4 lg:col-span-5">
               {channels.map((c, idx) => {
                 const Icon = c.icon;

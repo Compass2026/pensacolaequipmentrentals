@@ -9,7 +9,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Phone, ArrowRight, TreePine, Tractor, Shovel, Ruler, ClipboardCheck, Users, Truck } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Professional Land Clearing Services Pensacola FL | Pensacola Equipment Rentals",
+  title: "Land Clearing Services in Pensacola, FL",
+  alternates: { canonical: "/land-clearing/" },
   description: "Need lot clearing, brush removal, or stump excavation in Pensacola, Gulf Breeze, Milton, or Navarre? Hire our local father-and-son land clearing team for free estimates.",
 };
 
@@ -162,8 +163,8 @@ export default function LandClearingPage() {
       />
 
       <FaqAccordion
-        title="Land clearing FAQs"
-        subtitle="Common questions about lot clearing, permits, pricing, and turnaround times."
+        title="Frequently asked questions"
+        subtitle="Common questions about our land clearing, rentals and delivery."
       />
     </>
   );

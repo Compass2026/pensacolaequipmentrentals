@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import { ServiceAreaTemplate } from "@/components/ServiceAreaTemplate";
 
 export const metadata: Metadata = {
-  title: "Equipment Rentals Milton FL | Pensacola Equipment Rentals",
+  title: "Equipment Rentals in Milton, FL",
+  alternates: { canonical: "/service-areas/milton-fl/" },
   description: "Rent mini excavators, skid steers, and dump trailers delivered to Milton, FL. Fast jobsite drop-off from a local father-and-son team.",
 };
 

@@ -9,7 +9,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Phone, ArrowRight, Check } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About Us | Father & Son Equipment Rentals Pensacola FL",
+  title: "About Us | Father & Son Team in Pensacola, FL",
+  alternates: { canonical: "/about/" },
   description: "Learn about Pensacola Equipment Rentals, a locally owned and operated father-and-son business providing heavy machinery rentals and land clearing across Pensacola.",
 };
 

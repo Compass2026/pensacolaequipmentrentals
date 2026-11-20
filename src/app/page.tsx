@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { EQUIPMENT_CATALOG } from "@/data/equipment";
@@ -16,6 +17,10 @@ import { QuoteSection } from "@/components/QuoteSection";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Phone, ArrowRight, Truck, Star } from "lucide-react";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 const HERO_MACHINE = EQUIPMENT_CATALOG.find((item) => item.id === "kubota-svl") ?? EQUIPMENT_CATALOG[2];
 

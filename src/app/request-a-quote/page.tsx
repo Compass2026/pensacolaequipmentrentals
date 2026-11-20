@@ -4,7 +4,8 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { PageHero } from "@/components/ui/PageHero";
 
 export const metadata: Metadata = {
-  title: "Request Equipment Quote & Availability | Pensacola Equipment Rentals",
+  title: "Request a Quote & Availability",
+  alternates: { canonical: "/request-a-quote/" },
   description: "Request daily, weekly, or monthly equipment rental rates for mini excavators, skid steers, trailers, and mowers delivered in Pensacola, FL.",
 };
 

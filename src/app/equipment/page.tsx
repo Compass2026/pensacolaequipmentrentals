@@ -8,7 +8,8 @@ import { ArrowRight, Phone } from "lucide-react";
 import { BUSINESS_INFO } from "@/data/business";
 
 export const metadata: Metadata = {
-  title: "Equipment Rentals Catalog | Mini Excavators, Skid Steers, Trailers & Mowers",
+  title: "Rental Catalog | Excavators, Skid Steers, Trailers & Mowers",
+  alternates: { canonical: "/equipment/" },
   description: "Browse Pensacola Equipment Rentals complete catalog of 2022-2023 Bobcat excavators, skid loaders, Iron Bull dump trailers, and Gravely mowers. Daily, weekly & monthly rates with delivery.",
 };
 

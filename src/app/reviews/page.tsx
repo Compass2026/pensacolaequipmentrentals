@@ -7,7 +7,8 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
-  title: "Customer Reviews & Testimonials | Pensacola Equipment Rentals",
+  title: "Customer Reviews",
+  alternates: { canonical: "/reviews/" },
   description: "Read Google reviews from Pensacola customers who rent mini excavators, skid steers, and dump trailers from Pensacola Equipment Rentals.",
 };
 
