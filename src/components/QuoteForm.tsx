@@ -4,7 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { EQUIPMENT_CATALOG } from "@/data/equipment";
 import { Send, CheckCircle2, PhoneCall, Loader2, AlertCircle } from "lucide-react";
-import { BUSINESS_INFO } from "@/data/business";
+import { BUSINESS_INFO, QUOTE_FORM_PROVIDER } from "@/data/business";
+import { GhlQuoteForm } from "./GhlQuoteForm";
 import { trackEvent } from "@/lib/analytics";
 
 interface QuoteFormProps {
@@ -14,7 +15,13 @@ interface QuoteFormProps {
   compact?: boolean;
 }
 
-export function QuoteForm({ preselectedEquipment, onSuccess, compact = false }: QuoteFormProps) {
+/** The quote form used across the site; QUOTE_FORM_PROVIDER picks which one. */
+export function QuoteForm(props: QuoteFormProps) {
+  return QUOTE_FORM_PROVIDER === "ghl" ? <GhlQuoteForm /> : <SiteQuoteForm {...props} />;
+}
+
+/** The site's own form: emails each request through /api/quote (Resend). */
+function SiteQuoteForm({ preselectedEquipment, onSuccess, compact = false }: QuoteFormProps) {
   const twoCol = compact ? "grid grid-cols-1 gap-5" : "grid grid-cols-1 gap-5 sm:grid-cols-2";
   const threeCol = compact ? "grid grid-cols-2 gap-5 [&>*:first-child]:col-span-2" : "grid grid-cols-1 gap-5 sm:grid-cols-3";
   const [submitted, setSubmitted] = useState(false);

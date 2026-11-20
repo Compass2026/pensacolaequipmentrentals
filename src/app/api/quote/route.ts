@@ -99,43 +99,11 @@ function formatDate(iso: string): string {
 
 const CONTACT_LABELS: Record<string, string> = { Phone: "Phone call", SMS: "Text message", Email: "Email" };
 
-/**
- * Optional GoHighLevel inbound webhook (a workflow with the "Inbound Webhook"
- * trigger). When GHL_WEBHOOK_URL is set, every quote request is also POSTed
- * there as JSON so it lands in the GHL contacts/pipeline and can fire the
- * workflow's SMS and email follow-ups. Email delivery is unchanged.
- */
-function ghlWebhookUrl(): string {
-  const url = readEnv("GHL_WEBHOOK_URL");
-  if (!url) return "";
-  try {
-    const parsed = new URL(url);
-    if (parsed.protocol === "https:") return url;
-    // Plain http only for local testing.
-    if (parsed.protocol === "http:" && ["localhost", "127.0.0.1"].includes(parsed.hostname)) return url;
-  } catch {
-    /* fall through */
-  }
-  console.error("[quote] GHL_WEBHOOK_URL is set but is not a valid https URL; skipping GoHighLevel.");
-  return "";
-}
-
-async function sendToGhl(url: string, payload: Record<string, string>): Promise<void> {
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(payload),
-    signal: AbortSignal.timeout(8000),
-  });
-  if (!res.ok) throw new Error(`GoHighLevel webhook answered ${res.status}`);
-}
-
 export async function POST(request: NextRequest) {
   const apiKey = readEnv("RESEND_API_KEY");
-  const ghlUrl = ghlWebhookUrl();
-  if (!apiKey && !ghlUrl) {
+  if (!apiKey) {
     console.error(
-      "[quote] No delivery channel: RESEND_API_KEY is not usable and GHL_WEBHOOK_URL is not set. " +
+      "[quote] RESEND_API_KEY is not usable. " +
         [
           describeSecret("RESEND_API_KEY"),
           `RESEND_FROM=${JSON.stringify(readEnv("RESEND_FROM")) || "absent"}`,
@@ -247,7 +215,7 @@ export async function POST(request: NextRequest) {
     ? recipientEnv.split(",").map((a) => a.trim()).filter(Boolean)
     : TO;
 
-  const sendEmail = async () => {
+  try {
     const resend = new Resend(apiKey);
     const { error } = await resend.emails.send({
       from: readEnv("RESEND_FROM") || FROM,
@@ -257,35 +225,13 @@ export async function POST(request: NextRequest) {
       html,
       text,
     });
-    if (error) throw new Error(`Resend: ${JSON.stringify(error)}`);
-  };
 
-  const [firstName, ...rest] = name.split(/\s+/);
-  const ghlPayload = {
-    first_name: firstName,
-    last_name: rest.join(" "),
-    full_name: name,
-    email,
-    phone: `+1${phoneDigits}`,
-    equipment,
-    start_date: startDate,
-    duration: durationLabel,
-    preferred_contact: CONTACT_LABELS[preferredContact],
-    delivery_address: delivery,
-    project_details: details,
-    source: "Website quote form",
-  };
-
-  const channels: { label: string; run: () => Promise<void> }[] = [];
-  if (apiKey) channels.push({ label: "email", run: sendEmail });
-  if (ghlUrl) channels.push({ label: "gohighlevel", run: () => sendToGhl(ghlUrl, ghlPayload) });
-
-  const results = await Promise.allSettled(channels.map((c) => c.run()));
-  results.forEach((result, i) => {
-    if (result.status === "rejected") console.error(`[quote] ${channels[i].label} delivery failed:`, result.reason);
-  });
-  // The lead is safe as long as one channel took it.
-  if (!results.some((r) => r.status === "fulfilled")) {
+    if (error) {
+      console.error("[quote] Resend send failed:", error);
+      return NextResponse.json({ error: FALLBACK_ERROR }, { status: 502 });
+    }
+  } catch (err) {
+    console.error("[quote] Resend threw:", err);
     return NextResponse.json({ error: FALLBACK_ERROR }, { status: 502 });
   }
 
