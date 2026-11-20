@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { EQUIPMENT_CATALOG, getEquipmentBySlug, getRelatedEquipment } from "@/data/equipment";
 import { BUSINESS_INFO } from "@/data/business";
 import { EquipmentCard } from "@/components/EquipmentCard";
@@ -13,6 +14,9 @@ import { Phone, Check, Truck, ChevronRight, ArrowRight, ShieldCheck, Plus } from
 interface Props {
   params: Promise<{ slug: string }>;
 }
+
+// Only the catalog's slugs exist; anything else is a real 404.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return EQUIPMENT_CATALOG.map((item) => ({
@@ -48,17 +52,7 @@ export default async function EquipmentDetailPage({ params }: Props) {
   const { slug } = await params;
   const equipment = getEquipmentBySlug(slug);
 
-  if (!equipment) {
-    return (
-      <div className="container space-y-4 py-24 text-center">
-        <h1 className="display text-4xl text-brand-black">Machine not found</h1>
-        <p className="text-gray-500">The requested equipment item does not exist.</p>
-        <Link href="/equipment" className="btn-primary">
-          Back to equipment
-        </Link>
-      </div>
-    );
-  }
+  if (!equipment) notFound();
 
   const related = getRelatedEquipment(equipment.relatedEquipmentSlugs);
   const baseUrl = "https://www.bnbcoastalcuts.com";
