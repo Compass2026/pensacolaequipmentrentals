@@ -24,6 +24,10 @@ export default function ServiceAreasPage() {
         }
         description={`We deliver heavy machinery to residential properties and commercial jobsites within ${BUSINESS_INFO.deliveryRadiusMiles} miles of Pensacola — and farther for a custom rate.`}
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Service Areas" }]}
+        image={{
+          src: "/images/equipment/iron-bull-dump-trailer.png",
+          alt: "Iron Bull dump trailer delivered to jobsites across the Pensacola area",
+        }}
       />
 
       <section className="bg-white py-20 lg:py-28">

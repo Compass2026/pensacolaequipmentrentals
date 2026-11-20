@@ -32,6 +32,10 @@ export default function AboutPage() {
         }
         description="A Pensacola father-and-son company built on honest communication, reliable equipment and personal dedication to local contractors and homeowners."
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "About" }]}
+        image={{
+          src: "/images/equipment/kubota-svl-skid-steer.png",
+          alt: "Kubota SVL track loader from the Pensacola Equipment Rentals fleet",
+        }}
       />
 
       <section className="bg-white py-24 lg:py-32">

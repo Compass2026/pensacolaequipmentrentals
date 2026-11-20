@@ -48,6 +48,10 @@ export default function ContactPage() {
         }
         description="Questions about equipment availability, jobsite delivery or land clearing quotes? Reach out below or call us anytime."
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Contact" }]}
+        image={{
+          src: "/images/equipment/bobcat-t66-skid-steer.png",
+          alt: "Bobcat T66 track loader available to rent in Pensacola",
+        }}
       />
 
       <section className="bg-slate-50 py-20 lg:py-28">

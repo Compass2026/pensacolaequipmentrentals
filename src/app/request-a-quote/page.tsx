@@ -18,8 +18,12 @@ export default function RequestQuotePage() {
             Request an equipment <span className="text-sun">quote.</span>
           </>
         }
-        description="Pick your machine and rental dates. We'll verify the schedule and send a formal quote promptly."
+        description="Send us a few details about your project. We'll confirm availability and get you a quote promptly."
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Request a Quote" }]}
+        image={{
+          src: "/images/equipment/gravely-zero-turn-mower.png",
+          alt: "Gravely zero-turn mower available to rent in Pensacola",
+        }}
       />
       <QuoteSection
         eyebrow="Reserve your machine"
