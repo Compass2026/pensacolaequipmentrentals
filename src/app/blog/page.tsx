@@ -27,6 +27,10 @@ export default function BlogIndexPage() {
         }
         description="Free guides and tips to help you pick the right machine for your jobsite in Pensacola."
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Blog" }]}
+        image={{
+          src: "/images/equipment/bobcat-t66-skid-steer.png",
+          alt: "Bobcat T66 track loader from the Pensacola Equipment Rentals fleet",
+        }}
       />
 
       <section className="bg-slate-50 py-20 lg:py-28">
