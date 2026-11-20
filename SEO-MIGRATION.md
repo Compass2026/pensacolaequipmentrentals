@@ -22,7 +22,7 @@ preserved URLs are byte-for-byte the live ones. A path typed without the slash g
 | `/contact/` | `src/app/contact` |
 | `/equipment/` | `src/app/equipment` |
 | `/land-clearing/` | `src/app/land-clearing` |
-| `/privacy-policy/` | `src/app/privacy-policy` (text of the WordPress page) |
+| `/privacy-policy/` | `src/app/privacy-policy` (text of the WordPress page, solar line and old phone removed) |
 | `/blog/` | `src/app/blog` (lists every post) |
 | `/<post-slug>/` × 10 | `src/app/[slug]` from `data/blog-posts.json` (see below) |
 

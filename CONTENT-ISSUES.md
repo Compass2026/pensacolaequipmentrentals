@@ -11,8 +11,8 @@ During the comprehensive audit of the live WordPress website (`https://www.bnbco
 * **Location 1 (Homepage)**: Listed as **`$600` per week** (and `$275` for "If we deliver Day Rental").
 * **Location 2 (Equipment Catalog Page `/equipment/`)**: Listed as **`$275` per week**.
 * **Impact**: Customer confusion regarding whether a weekly dump trailer rental is $275 or $600.
-* **Implementation Action**: In `src/data/equipment.ts`, the weekly rate is set to `$600` with a documented `TODO: Owner confirmation required for 2022 Iron Bull weekly rate`.
-* **Action Required**: Owner must confirm if weekly dump trailer rental is $600 or $275.
+* **Cause**: The homepage table has four rows (Day $175 · If we deliver Day Rental $275 · Week $600 · Month $1350). The `/equipment/` table drops the "If we deliver" row, so its $275 landed in the Week slot.
+* **Resolution (Nov 2026)**: Keep the old site's homepage pricing: weekly **$600**, delivered day rental $275. Set in `src/data/equipment.ts`.
 
 ---
 
@@ -47,8 +47,7 @@ During the comprehensive audit of the live WordPress website (`https://www.bnbco
 
 ### ISSUE #6: The "Privacy Policy" page is a Terms of Service
 * **Live page** `/privacy-policy/` (last updated June 15th, 2025) is titled Privacy Policy but its text is a Terms of Service, and section 1 lists "solar sales, installations, consultations" as services; its contact phone is 850-637-4442.
-* **Implementation Action**: The copied solar-services wording was removed first; `/privacy-policy/` is now an actual privacy policy **draft** written from what the Next.js site does (quote form fields, emailed via Resend to the business and Compass Marketing, no database, in-memory rate limit, optional Google Analytics, Google Maps embed on `/contact/`, Vercel hosting, no first-party cookies or browser storage). Effective date reads "Draft — pending owner review".
-* **Action Required**: Owner review and approval of the draft (counsel if desired); then set the effective date in `src/app/privacy-policy/page.tsx`.
+* **Resolution (Nov 2026)**: At the agency's request `/privacy-policy/` carries the WordPress page's text, with "solar sales, installations, consultations" removed and the phone corrected to 850-407-6566; "Last Updated" is the date of that change. It is still a Terms of Service rather than a privacy policy. A privacy policy written from what the site does is in git history (commit `4e38146`) if one is needed later — e.g. GoHighLevel SMS (A2P 10DLC) registration usually asks for a privacy policy covering text messaging.
 
 ---
 
@@ -68,9 +67,9 @@ During the comprehensive audit of the live WordPress website (`https://www.bnbco
 
 Status as of Nov 2026. Items marked **OPEN** still need the owner.
 
-1. **OPEN — Iron Bull Dump Trailer weekly rate**: the homepage said `$600`/week, the `/equipment/` page `$275`/week. `src/data/equipment.ts` still uses `$600` (unchanged) until the owner confirms which is right.
+1. **Resolved — Iron Bull Dump Trailer weekly rate**: `$600`/week, per the old homepage (see Issue #1).
 2. **Mostly resolved — Phone number**: the Google Business Profile lists `850-407-6566`. Still worth confirming `850-407-6566` is the only active line. The live WordPress header dialed `850-637-4442` and four migrated blog posts used it; "Top 7 Reasons to Rent vs. Buy" also listed `573-864-8356`. Both were removed — the site uses `850-407-6566` everywhere.
-3. **OPEN — Privacy policy**: `/privacy-policy/` is a draft written from what the site does. It needs the owner's approval (and counsel's, if wanted) before the "Draft — pending owner review" effective date is replaced.
-4. **OPEN — GA4 measurement ID**: no GA4 property / measurement ID has been created yet, so `NEXT_PUBLIC_GA_ID` is unset and no analytics tag loads. Once it is set, the privacy policy's "Google Analytics (if enabled)" section applies.
+3. **Resolved — Privacy policy**: carries the WordPress page's text (see Issue #6).
+4. **OPEN (agency is setting up) — GA4 measurement ID**: no GA4 property / measurement ID yet, so `NEXT_PUBLIC_GA_ID` is unset and no analytics tag loads. Set it in Vercel and redeploy.
 5. **OPEN — GoHighLevel**: the WordPress quote form fed GoHighLevel form `wi42vrSXhsIIyErqECdb`. The new form emails quotes and, once `GHL_WEBHOOK_URL` is set in Vercel (a GHL workflow's Inbound Webhook URL), also posts each quote to GoHighLevel. Redeploy after setting it.
 6. **Delivery Radius** (verified, no action): legacy site states "Prices include drop-off and pick-up within 20 miles of Pensacola. Will go farther for additional cost." Preserved.

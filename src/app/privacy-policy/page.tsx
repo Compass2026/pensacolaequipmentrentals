@@ -1,43 +1,26 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import Link from "next/link";
 import { PageHero } from "@/components/ui/PageHero";
 import { BUSINESS_INFO } from "@/data/business";
 
-/* DRAFT — PENDING OWNER REVIEW. Not approved by the business owner and not
-   legal advice. It replaces the WordPress /privacy-policy/ text, which was a
-   Terms of Service copied from another business.
-
-   Written from what this codebase actually does — re-check this page whenever
-   any of these change:
-   - Quote form (src/components/QuoteForm.tsx -> src/app/api/quote/route.ts):
-     name, phone, email, equipment/service, start date, duration, preferred
-     contact method, delivery address or ZIP, project details. Emailed through
-     Resend from send.compassmarketing.ai to QUOTE_RECIPIENT (default: the
-     business inbox and Compass Marketing). No database; nothing stored by the
-     site. The visitor's IP is held in server memory for a 10-minute rate limit.
-     When GHL_WEBHOOK_URL is set, the same fields are also sent to the
-     business's GoHighLevel account (CRM, texts and email follow-up); the
-     paragraph below about GoHighLevel only renders then. Env changes need a
-     redeploy for this static page to pick them up.
-   - Google Analytics 4 only when NEXT_PUBLIC_GA_ID is set (src/lib/analytics.ts,
-     src/components/Analytics.tsx): page views, `phone_click`, `form_submit`
-     (form name, equipment, duration — no contact details).
-   - Google Maps embed on /contact/. Fonts are self-hosted. No localStorage,
-     no first-party cookies, no accounts, no payments, hosted on Vercel.
-
-   Keep the page indexable like the site's other pages. Update EFFECTIVE_DATE
-   once the owner approves the text. */
+/* The text of the WordPress /privacy-policy/ page (last updated there June 15,
+   2025), copied at the agency's request in Nov 2026. Two corrections only:
+   - section 1 no longer lists "solar sales, installations, consultations"
+     (left over from another business's template);
+   - the contact phone is 850-407-6566, not the retired 850-637-4442.
+   Note: this text is a Terms of Service. A privacy policy written from what
+   the Next.js site actually does (quote form via Resend, optional GA4, Google
+   Maps embed, Vercel hosting) was drafted in commit 4e38146 and can be
+   restored from git history if the owner wants a true privacy policy (e.g.
+   for GoHighLevel SMS / A2P 10DLC registration). */
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "How Pensacola Equipment Rentals collects, uses and shares the information you give us through our website, including quote requests.",
+    "The terms that apply when you use the Pensacola Equipment Rentals website and services, including how we handle the information you submit.",
   alternates: { canonical: "https://www.bnbcoastalcuts.com/privacy-policy/" },
 };
 
-const EFFECTIVE_DATE = "Draft — pending owner review";
-
-const link = "font-semibold text-brand-blue hover:text-brand-red";
+const LAST_UPDATED = "November 20, 2026";
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -50,158 +33,138 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
 
 export default function PrivacyPolicyPage() {
   const name = BUSINESS_INFO.name;
-  const usesGhl = Boolean(process.env.GHL_WEBHOOK_URL?.trim());
+  const link = "font-semibold text-brand-blue hover:text-brand-red";
   return (
     <>
       <PageHero
         eyebrow="Legal"
         title="Privacy Policy"
-        description={`Effective date: ${EFFECTIVE_DATE}`}
+        description={`Last Updated: ${LAST_UPDATED}`}
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Privacy Policy" }]}
       />
       <section className="bg-white py-16 lg:py-24">
         <div className="container max-w-3xl space-y-10 text-[1.0625rem] leading-relaxed text-gray-700">
           <p>
-            {name} is a locally owned equipment rental and land clearing business in Pensacola, Florida. This page
-            explains what information our website collects, what we do with it, and who else sees it. It covers this
-            website only. Rental agreements and anything you sign with us in person are separate.
+            Welcome to {name}. By accessing or using our services, you agree to comply with and be bound by these Terms
+            of Service (&ldquo;Terms&rdquo;). If you do not agree with these Terms, please do not use our Website or
+            services.
           </p>
 
-          <Section title="Information you give us">
+          <Section title="1. Agreement to Terms">
             <p>
-              When you send a quote request through the form on our website, we ask for your name, phone number,
-              email address, the equipment or service you want, your start date and rental length, how you prefer to
-              be contacted, your delivery address or ZIP code, and any project details you choose to add.
-            </p>
-            <p>
-              If you call, text or email us using the phone number or email links on the site, your phone or email
-              app handles that contact, and we receive whatever you send us the same way we would from any other
-              call, text or email.
-            </p>
-            <p>
-              The website has no customer accounts, no log-ins and no online payments.
+              These Terms govern your access to and use of the Website https://www.bnbcoastalcuts.com/ and any services
+              provided by {name}. By submitting information or contacting us through our Website, you agree to these
+              Terms.
             </p>
           </Section>
 
-          <Section title="How we use it">
+          <Section title="2. Services Provided">
             <p>
-              We use your information to answer your request: to check availability, give you a price, arrange
-              delivery and pickup, schedule land clearing work, and follow up about that request by the method you
-              chose. We don&apos;t sign you up for a newsletter through the form. If you would rather we didn&apos;t
-              contact you again, tell us and we&apos;ll stop.
+              {name} provides equipment rental services for residential, commercial, and industrial use. Our offerings
+              include, but are not limited to: the rental of construction equipment, land clearing machinery, and
+              related tools. We also provide delivery, pickup, and basic operational guidance for all rented equipment.
+              In some cases, we may offer optional services such as on-site land clearing or light maintenance.
+              Additional services may be introduced or modified from time to time as our business evolves.
             </p>
           </Section>
 
-          <Section title="Who receives your quote request">
+          <Section title="3. Use of Our Website">
             <p>
-              The website itself does not store quote requests in a database. When you press submit, the details are sent as
-              an email to {name} and to our marketing agency, Compass Marketing, which builds and runs this website for
-              us and makes sure requests arrive. The email is delivered through Resend, an email delivery service.
-              Our inbox is hosted by Google (Gmail).
-            </p>
-            {usesGhl && (
-              <p>
-                Your request is also added to our customer management system, GoHighLevel, where we keep a record of
-                the request and may send you text messages or emails about it by the contact method you chose. You can
-                reply STOP to any text from us to stop further texts.
-              </p>
-            )}
-            <p>
-              These providers handle the information only to {usesGhl ? "deliver, store and manage those requests" : "deliver and store those emails"}, under their own privacy
-              policies.
+              You may use our Website for lawful purposes and in accordance with these Terms. You agree not to: Use the
+              Website to violate any applicable laws or regulations. Upload or transmit harmful code (viruses, malware,
+              etc.). Interfere with or disrupt the Website&rsquo;s functionality or security.
             </p>
           </Section>
 
-          <Section title="Information collected automatically">
+          <Section title="4. Privacy and Data Collection">
             <p>
-              Our website is hosted by Vercel. Like most web hosts, Vercel&apos;s servers record basic technical
-              details of each visit, such as your IP address, browser type, the page requested and the time, to
-              deliver the site and keep it secure.
-            </p>
-            <p>
-              To stop automated spam, the quote form briefly checks how many requests have come from your IP address.
-              That count is held in the server&apos;s memory for about ten minutes and is not saved by the website.
-            </p>
-            <p>
-              <strong className="text-brand-black">Google Analytics (if enabled).</strong> We may use Google
-              Analytics to understand how people find and use the site. When it is turned on, Google Analytics uses
-              cookies and similar technology to collect information such as the pages you visit, how you arrived,
-              your device and browser, and your approximate location. We also record when someone taps one of our
-              phone links (which number and which link) and when a quote form is sent (which equipment and rental
-              length). We do not send your name, phone number, email address or delivery address to Google
-              Analytics. You can block analytics cookies in your browser settings or with Google&apos;s{" "}
-              <a href="https://tools.google.com/dlpage/gaoptout" className={link} rel="noopener noreferrer">
-                opt-out browser add-on
-              </a>
-              .
+              By using our Website, you acknowledge that we collect personal information through forms and
+              communications, as described in our Privacy Policy. You agree to provide accurate and complete information
+              when interacting with our services and forms.
             </p>
           </Section>
 
-          <Section title="Cookies and maps">
+          <Section title="5. Opt-In Communications">
             <p>
-              Our own website does not set cookies or save anything in your browser&apos;s storage. Fonts and images
-              are served from our own site. The{" "}
-              <Link href="/contact/" className={link}>
-                contact page
-              </Link>{" "}
-              shows an embedded Google Map, and links to directions open Google Maps; Google may set its own cookies
-              when the map loads or when you use those links. If Google Analytics is turned on (see above), it sets
-              cookies too.
+              By submitting a form or providing contact information, you consent to receiving communications from{" "}
+              {name} regarding products, services, and promotions. You can opt out of these communications at any time
+              by following the opt-out instructions in our emails or by contacting us directly.
             </p>
           </Section>
 
-          <Section title="What we don't do">
+          <Section title="6. Pricing and Payments">
             <p>
-              We do not sell your personal information, and we do not share it with other businesses for their own
-              advertising.
+              Prices for services and products will be provided as part of a quote or consultation. Any payment terms,
+              including deposit requirements and payment schedules, will be outlined in a separate agreement or contract
+              specific to the service provided.
+            </p>
+            <p>
+              All payments are due in accordance with the agreed-upon terms. Late payments may be subject to additional
+              charges or fees as specified in the agreement.
             </p>
           </Section>
 
-          <Section title="How long we keep it">
+          <Section title="7. Intellectual Property">
             <p>
-              Quote request emails stay in the inboxes they were sent to until they are deleted, and the email delivery
-              service keeps its own delivery records for a limited time. We keep quote requests as long as we need them
-              to handle your rental or job and for ordinary business records. You can ask us to delete yours at any
-              time.
+              All content on our Website, including text, graphics, logos, and images, is the property of {name} and is
+              protected by intellectual property laws. You may not use, reproduce, or distribute any content from the
+              Website without our express written permission.
             </p>
           </Section>
 
-          <Section title="Your choices">
+          <Section title="8. Limitation of Liability">
             <p>
-              You can ask us what information we have from you, ask us to correct it, or ask us to delete it, by
-              calling, texting or emailing us using the details below. We may need to confirm it&apos;s you before
-              making changes, and we may keep records we are required to keep, such as those tied to a completed
-              rental.
+              To the fullest extent permitted by law, {name} is not liable for any damages arising from your use of the
+              Website or our services, including, but not limited to, any loss of data, revenue, or profits, or any
+              indirect, incidental, or consequential damages. Our total liability will be limited to the amount paid by
+              you for the specific service in question.
             </p>
           </Section>
 
-          <Section title="Children">
+          <Section title="9. Warranty Disclaimer">
             <p>
-              Our website is meant for adults arranging equipment rentals and land clearing work. It is not directed
-              to children under 13, and we do not knowingly collect information from them.
+              {name} does not warrant that the services provided will meet your specific requirements or be
+              uninterrupted or error-free. We make no representations or warranties of any kind, express or implied,
+              regarding the operation of our services or the information, content, or materials included on the
+              Website.
             </p>
           </Section>
 
-          <Section title="Security">
+          <Section title="10. Indemnification">
             <p>
-              The website is served over an encrypted (HTTPS) connection, and quote requests are sent by email rather
-              than stored on the website. No website or email system is completely secure, so please don&apos;t include
-              payment card numbers or other sensitive details in the form.
+              You agree to indemnify and hold harmless {name}, its officers, employees, and agents from any claims,
+              damages, or liabilities arising out of your use of the Website or services, including any violation of
+              these Terms.
             </p>
           </Section>
 
-          <Section title="Changes to this policy">
+          <Section title="11. Termination of Services">
             <p>
-              If we change how the website handles information, we will update this page and the effective date at the
-              top.
+              We may suspend or terminate your access to the Website and services at any time for any reason, including
+              if you violate these Terms. You may also terminate your relationship with us by contacting us and
+              discontinuing the use of our Website and services.
             </p>
           </Section>
 
-          <Section title="Contact us">
-            <p>Questions about this policy or your information:</p>
+          <Section title="12. Governing Law and Dispute Resolution">
+            <p>
+              These Terms will be governed by and construed in accordance with the laws of the state of Florida, without
+              regard to its conflict of law principles. Any disputes arising under or in connection with these Terms
+              shall be resolved in the courts located in Pensacola, Florida.
+            </p>
+          </Section>
+
+          <Section title="13. Changes to These Terms">
+            <p>
+              We reserve the right to modify or update these Terms at any time. Any changes will be posted on this page
+              with a revised &ldquo;Last Updated&rdquo; date. By continuing to use our Website or services, you agree to
+              be bound by the updated Terms.
+            </p>
+          </Section>
+
+          <Section title="14. Contact Us">
+            <p>If you have any questions or concerns about these Terms of Service, please contact us:</p>
             <address className="not-italic">
-              {name}
-              <br />
               {BUSINESS_INFO.address.formatted}
               <br />
               Phone:{" "}
