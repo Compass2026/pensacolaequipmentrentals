@@ -24,7 +24,7 @@ export interface EquipmentItem {
   brand: string;
   model: string;
   year?: string;
-  category: "Excavators" | "Skid Steers" | "Trailers" | "Mowers" | "Lawn & Hand Tools";
+  category: "Excavators" | "Skid Steers" | "Trailers" | "Mowers" | "Lawn & Hand Tools" | "Scaffolding";
   shortDescription: string;
   longDescription: string;
   rates: {
@@ -416,6 +416,53 @@ export const EQUIPMENT_CATALOG: EquipmentItem[] = [
     ],
     relatedEquipmentSlugs: ["stihl-backpack-sprayer", "bobcat-e26-mini-excavator"],
   },
+  {
+    id: "steel-frame-scaffolding",
+    name: "Steel Frame Scaffolding",
+    shortName: "Scaffolding",
+    slug: "steel-frame-scaffolding",
+    brand: "Steel frame",
+    model: "Scaffolding",
+    category: "Scaffolding",
+    shortDescription: "Steel frame scaffolding with cross braces and plank decks for painting, drywall and work on high walls, ceilings and windows.",
+    longDescription: "Our steel frame scaffolding gives you a stable work platform for jobs that are too high or too long for a ladder: painting tall walls and vaulted ceilings, drywall and trim, high windows, and exterior work. Frames stack with cross braces, and planks set the deck at the height you need. Tell us how high you need to reach and we'll set you up with the right number of sections.",
+    rates: {
+      daily: 35,
+      // Only the daily rate is set (Nov 2026). Add weekly/monthly here when the owner sets them.
+    },
+    attachments: [],
+    specifications: [
+      { label: "Type", value: "Steel frame scaffolding with ladder-style end frames" },
+      { label: "Setup", value: "Stackable sections joined with cross braces" },
+      { label: "Work platform", value: "Plank decks set at your working height" },
+    ],
+    includedEquipment: [],
+    recommendedUses: [
+      "Painting tall walls & vaulted ceilings",
+      "Drywall, trim & ceiling work",
+      "High windows & light fixtures",
+      "Exterior siding & soffit work",
+    ],
+    deliveryInfo: "Call or text 850-407-6566 to arrange pickup or delivery.",
+    primaryImage: "/images/equipment/steel-frame-scaffolding.png",
+    imageAltText: "Two-section steel frame scaffolding with cross braces and plank decks",
+    availabilityLabel: "Available Now",
+    seoTitle: "Scaffolding Rental Pensacola FL",
+    metaDescription: "Rent steel frame scaffolding in Pensacola, FL for $35/day. A stable platform for painting, drywall, ceilings and high windows. Call or text 850-407-6566.",
+    pageHeading: "Steel Frame Scaffolding Rental in Pensacola",
+    faqs: [
+      {
+        question: "How much does scaffolding rent for?",
+        answer: "Scaffolding rents for $35 per day. Call or text 850-407-6566 to reserve it.",
+      },
+      {
+        question: "How much scaffolding do I need?",
+        answer: "Tell us how high you need to work and what the job is, and we'll recommend how many sections and planks to bring.",
+      },
+    ],
+    relatedEquipmentSlugs: ["iron-bull-dump-trailer", "stihl-chainsaw"],
+  },
+
 ];
 
 export function getEquipmentBySlug(slug: string): EquipmentItem | undefined {
