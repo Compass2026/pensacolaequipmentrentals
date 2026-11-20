@@ -20,7 +20,7 @@ const nextConfig = {
       { source: "/comments/feed", destination: "/sitemap.xml", permanent: true },
       // Per-post comment feeds. "comments" is excluded so /comments/feed/ hits
       // its own rule above instead of redirecting to a /comments/ page.
-      { source: "/:slug((?!comments$)[^/]+)/feed", destination: "/:slug/", permanent: true },
+      { source: "/:slug((?!comments(?:/|$))[^/]+)/feed", destination: "/:slug/", permanent: true },
       { source: "/wp-sitemap.xml", destination: "/sitemap.xml", permanent: true },
       { source: "/:sitemap(wp-sitemap-.+\\.xml)", destination: "/sitemap.xml", permanent: true },
       { source: "/category/:path*", destination: "/blog/", permanent: true },
