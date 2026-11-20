@@ -86,6 +86,11 @@ function nonEmpty(value: unknown): value is string {
 export function loadPosts(input: unknown, root = process.cwd()): BlogPost[] {
   if (!Array.isArray(input)) throw new Error("data/blog-posts.json must be an array");
   const seen = new Set<string>();
+  // The hero-image file check guards the build, where public/ is on disk. On
+  // Vercel, public/ is served by the CDN and isn't in the server functions, so
+  // a route rendered at runtime (e.g. /sitemap.xml requested with an RSC
+  // header) would fail the check for files that are in fact deployed.
+  const canCheckFiles = fs.existsSync(path.join(root, HERO_IMAGE_DIR));
   const posts = input.map((raw): BlogPost => {
     const v = raw as Record<string, unknown> & BlogPost;
     if (!v || typeof v !== "object") fail(undefined, "entry is not an object");
@@ -108,7 +113,7 @@ export function loadPosts(input: unknown, root = process.cwd()): BlogPost[] {
       if (!nonEmpty(h.alt)) fail(v.slug, "hero image needs alt text");
       if (!Number.isInteger(h.width) || !Number.isInteger(h.height) || h.width < 1 || h.height < 1) fail(v.slug, "hero image needs dimensions");
       const file = path.join(root, HERO_IMAGE_DIR, h.src.slice(HERO_IMAGE_URL_PREFIX.length));
-      if (!fs.existsSync(file)) fail(v.slug, `hero image file is not in the repository (${HERO_IMAGE_DIR}/${path.basename(file)})`);
+      if (canCheckFiles && !fs.existsSync(file)) fail(v.slug, `hero image file is not in the repository (${HERO_IMAGE_DIR}/${path.basename(file)})`);
     }
     if (v.compass !== undefined) {
       const c = v.compass;
