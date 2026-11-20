@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import { ServiceAreaTemplate } from "@/components/ServiceAreaTemplate";
 
 export const metadata: Metadata = {
-  title: "Equipment Rentals Navarre FL | Pensacola Equipment Rentals",
+  title: "Equipment Rentals in Navarre, FL",
+  alternates: { canonical: "/service-areas/navarre-fl/" },
   description: "Rent mini excavators, skid steers, and dump trailers delivered to Navarre, FL. Jobsite delivery and brush clearing available.",
 };
 

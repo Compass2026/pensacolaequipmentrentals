@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import { ServiceAreaTemplate } from "@/components/ServiceAreaTemplate";
 
 export const metadata: Metadata = {
-  title: "Equipment Rentals Gulf Breeze FL | Pensacola Equipment Rentals",
+  title: "Equipment Rentals in Gulf Breeze, FL",
+  alternates: { canonical: "/service-areas/gulf-breeze-fl/" },
   description: "Rent mini excavators, skid steers, and dump trailers delivered to Gulf Breeze, FL. Locally owned father and son equipment delivery.",
 };
 

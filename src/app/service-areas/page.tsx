@@ -8,7 +8,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { MapPin, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Service Areas | Equipment Rental Delivery Near Pensacola FL",
+  title: "Service Areas | Equipment Delivery Near Pensacola, FL",
+  alternates: { canonical: "/service-areas/" },
   description: "Pensacola Equipment Rentals delivers mini excavators, skid steers, dump trailers, and mowers to Pensacola, Gulf Breeze, Milton, Navarre, and Panhandle communities.",
 };
 

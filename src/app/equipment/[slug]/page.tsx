@@ -33,6 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: equipment.seoTitle,
     description: equipment.metaDescription,
+    alternates: { canonical: `/equipment/${equipment.slug}/` },
     openGraph: {
       title: equipment.seoTitle,
       description: equipment.metaDescription,
@@ -202,32 +203,34 @@ export default async function EquipmentDetailPage({ params }: Props) {
                 </dl>
               </Reveal>
 
-              <Reveal className="space-y-6">
-                <h2 className="font-heading text-2xl font-bold text-brand-black">Included &amp; optional attachments</h2>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  {equipment.attachments.map((att) => (
-                    <div key={att.name} className="flex items-start gap-4 rounded-2xl border border-gray-200 p-5">
-                      <span
-                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
-                          att.included ? "bg-emerald-50 text-emerald-600" : "bg-brand-yellow/15 text-brand-yellow-dark"
-                        }`}
-                      >
-                        {att.included ? <Check className="h-5 w-5" /> : <Plus className="h-5 w-5" />}
-                      </span>
-                      <div className="space-y-1">
-                        <div className="font-semibold text-brand-black">{att.name}</div>
-                        {att.included ? (
-                          <div className="text-xs font-semibold uppercase tracking-wider text-emerald-600">Included</div>
-                        ) : (
-                          <div className="text-xs text-gray-500">
-                            Add-on{att.dailyRate ? `: $${att.dailyRate}/day · $${att.weeklyRate}/wk · $${att.monthlyRate}/mo` : ""}
-                          </div>
-                        )}
+              {equipment.attachments.length > 0 && (
+                <Reveal className="space-y-6">
+                  <h2 className="font-heading text-2xl font-bold text-brand-black">Included &amp; optional attachments</h2>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    {equipment.attachments.map((att) => (
+                      <div key={att.name} className="flex items-start gap-4 rounded-2xl border border-gray-200 p-5">
+                        <span
+                          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
+                            att.included ? "bg-emerald-50 text-emerald-600" : "bg-brand-yellow/15 text-brand-yellow-dark"
+                          }`}
+                        >
+                          {att.included ? <Check className="h-5 w-5" /> : <Plus className="h-5 w-5" />}
+                        </span>
+                        <div className="space-y-1">
+                          <div className="font-semibold text-brand-black">{att.name}</div>
+                          {att.included ? (
+                            <div className="text-xs font-semibold uppercase tracking-wider text-emerald-600">Included</div>
+                          ) : (
+                            <div className="text-xs text-gray-500">
+                              Add-on{att.dailyRate ? `: $${att.dailyRate}/day · $${att.weeklyRate}/wk · $${att.monthlyRate}/mo` : ""}
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </Reveal>
+                    ))}
+                  </div>
+                </Reveal>
+              )}
 
               <Reveal className="space-y-6">
                 <h2 className="font-heading text-2xl font-bold text-brand-black">Great for</h2>

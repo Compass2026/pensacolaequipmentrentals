@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import { ServiceAreaTemplate } from "@/components/ServiceAreaTemplate";
 
 export const metadata: Metadata = {
-  title: "Equipment Rentals Pensacola FL | Mini Excavators, Skid Steers & Trailers",
+  title: "Equipment Rentals in Pensacola, FL",
+  alternates: { canonical: "/service-areas/pensacola-fl/" },
   description: "Locally owned equipment rentals in Pensacola, FL. Rent 2023 Bobcat excavators, track skid steers, and Iron Bull dump trailers with jobsite delivery across Pensacola.",
 };
 
