@@ -48,7 +48,6 @@ export interface EquipmentItem {
   pageHeading: string;
   faqs: EquipmentFaq[];
   relatedEquipmentSlugs: string[];
-  pricingDiscrepancyNote?: string;
 }
 
 export const EQUIPMENT_CATALOG: EquipmentItem[] = [
@@ -242,7 +241,8 @@ export const EQUIPMENT_CATALOG: EquipmentItem[] = [
       dailyDelivered: 275,
       weekly: 600,
       monthly: 1350,
-      // TODO: Confirm weekly rate ($600 on homepage vs $275 on equipment page).
+      // Weekly $600 per the WordPress homepage. Its /equipment/ page showed
+      // $275/week because that table dropped the "delivered day" row.
       customPricingNote: "Day rental self-tow: $175 · Day rental delivered by us: $275.",
     },
     attachments: [
@@ -285,7 +285,6 @@ export const EQUIPMENT_CATALOG: EquipmentItem[] = [
       }
     ],
     relatedEquipmentSlugs: ["bobcat-e26-mini-excavator", "bobcat-t66-skid-steer", "gravely-zero-turn-mower"],
-    pricingDiscrepancyNote: "TODO: Owner confirmation required for weekly dump trailer pricing ($600 on homepage vs $275 on equipment catalog page).",
   },
   {
     id: "gravely-pro-turn",

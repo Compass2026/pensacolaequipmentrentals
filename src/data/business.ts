@@ -26,10 +26,21 @@ export const BUSINESS_INFO = {
     { name: "Milton", slug: "milton-fl", state: "FL" },
     { name: "Navarre", slug: "navarre-fl", state: "FL" },
   ],
-  socials: {
-    facebook: "https://www.facebook.com/",
-    twitter: "https://twitter.com/",
-    youtube: "https://www.youtube.com/",
-  },
+  /* Profiles that belong to this business, used as schema.org sameAs. The
+     WordPress site linked no social accounts; add the real Facebook (or other)
+     profile URL here when there is one. Never put a bare platform homepage. */
+  profiles: ["https://www.google.com/maps?cid=9161359117850950736"],
   ghlFormId: "wi42vrSXhsIIyErqECdb",
 };
+
+/**
+ * Which quote form the site shows everywhere (contact page, equipment pages,
+ * quote pop-ups):
+ * - "ghl": the GoHighLevel "Website" form (BUSINESS_INFO.ghlFormId), the same
+ *   one the WordPress site embedded. Leads go straight into GoHighLevel.
+ * - "site": the site's own form, which emails each request through Resend
+ *   (src/app/api/quote/route.ts; needs RESEND_API_KEY in Vercel).
+ * Interim choice while GoHighLevel is in use (Nov 2026); switch to "site"
+ * when GoHighLevel is retired.
+ */
+export const QUOTE_FORM_PROVIDER: "ghl" | "site" = "ghl";

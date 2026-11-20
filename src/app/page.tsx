@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { EQUIPMENT_CATALOG } from "@/data/equipment";
 import { BUSINESS_INFO } from "@/data/business";
+import { GOOGLE_RATING } from "@/data/reviews";
 import { EquipmentCard } from "@/components/EquipmentCard";
 import { TrustBar } from "@/components/TrustBar";
 import { BrandMarquee } from "@/components/BrandMarquee";
@@ -25,7 +26,7 @@ export default function HomePage() {
     { value: `${BUSINESS_INFO.deliveryRadiusMiles} mi`, label: "Delivery radius" },
     { value: `${EQUIPMENT_CATALOG.length}`, label: "Machines & tools" },
     { value: "2022+", label: "Model-year fleet" },
-    { value: "5.0", label: "Customer rating", star: true },
+    { value: GOOGLE_RATING.value.toFixed(1), label: `${GOOGLE_RATING.count} Google reviews`, star: true },
   ];
 
   return (

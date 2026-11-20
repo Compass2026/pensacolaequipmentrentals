@@ -32,7 +32,7 @@ export function generateLocalBusinessSchema() {
       "@type": "AdministrativeArea",
       name: `${area.name}, FL`,
     })),
-    sameAs: [BUSINESS_INFO.socials.facebook, BUSINESS_INFO.socials.twitter],
+    sameAs: BUSINESS_INFO.profiles,
   };
 }
 

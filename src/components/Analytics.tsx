@@ -6,7 +6,9 @@ import { GA_ID, trackEvent } from "@/lib/analytics";
 
 /* Loads GA4 only when NEXT_PUBLIC_GA_ID is set, and reports every click on a
    tel: link (header, sticky bar, page CTAs, article CTAs) as `phone_click`.
-   Quote submissions are reported by QuoteForm as `form_submit`. */
+   Quote submissions are reported as `form_submit` by the site's own form
+   only; the GoHighLevel embed (QUOTE_FORM_PROVIDER "ghl") is a cross-origin
+   iframe, so its submissions are tracked in GoHighLevel instead. */
 export function Analytics() {
   useEffect(() => {
     if (!GA_ID) return;
