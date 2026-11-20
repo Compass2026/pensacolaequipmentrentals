@@ -23,6 +23,10 @@ export default function ReviewsPage() {
         }
         description="Reviews our customers posted on Google, word for word."
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Reviews" }]}
+        image={{
+          src: "/images/equipment/bobcat-e26-mini-excavator.png",
+          alt: "Bobcat E26 mini excavator rented by Pensacola customers",
+        }}
       >
         <div className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 px-5 py-3 backdrop-blur">
           <span className="font-heading text-3xl font-extrabold">{GOOGLE_RATING.value.toFixed(1)}</span>
