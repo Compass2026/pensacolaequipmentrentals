@@ -161,9 +161,10 @@ export function Footer() {
             <Link href="/contact" className="hover:text-white">
               Contact
             </Link>
-            <Link href="/sitemap.xml" className="hover:text-white">
+            {/* Plain <a>: sitemap.xml is a file, not a page, so it must not be prefetched as one. */}
+            <a href="/sitemap.xml" className="hover:text-white">
               Sitemap
-            </Link>
+            </a>
           </div>
         </div>
       </div>
